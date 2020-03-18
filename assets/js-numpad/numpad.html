@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Simple Javascript Numeric Keypad Demo
+    </title>
+    <!-- [1 : INCLUDE CSS AND JS] -->
+    <link href="numpad.css" rel="stylesheet">
+    <script src="numpad.js"></script>
+  </head>
+  <body>
+    <!-- [2 : DEFINE YOUR TEXT OR NUMBER FIELDS] -->
+    <input type="text" id="demo-numpad-1"/>
+    <input type="number" id="demo-numpad-2"/>
+
+    <!-- [3 : ATTACH THE NUMPAD TO THE HTML FIELDS] -->
+    <script>
+      window.addEventListener("load", function(){
+        // Bare minimum - provide the ID
+        numpad.attach({
+          id : "demo-numpad-1"
+        });
+        // The options
+        numpad.attach({
+          id : "demo-numpad-2",
+          // The target field will be set to "readonly" by default
+          // This is to prevent the default onscreen keyboard from showing up on mobiles
+          // Use this with extra care
+          readonly : false, 
+          // Allow decimal points? True by default
+          decimal : false,
+          // Maximum allowed characters, 16 by default
+          // Feel free to modify the script to set a maximum allowed number instead
+          max : 5
+        });
+      });
+    </script>
+  </body>
+</html>
