@@ -19,12 +19,12 @@ class Tab_barang_model extends CI_Model
   // datatables
   public function json()
   {
-    $this->datatables->select('master_group.kode_group, master_group.nama_group, tab_barang.kode_barang, tab_barang.kode_group, tab_barang.nama, tab_barang.gambar, tab_barang.stok, tab_barang.keterangan, tab_barang.spesifikasi, tab_barang.merk, GROUP_CONCAT(stock_opname_detail.lokasi) as lokasi');
+    $this->datatables->select('master_group.kode_group, master_group.nama_group, tab_barang.kode_barang, tab_barang.kode_group, tab_barang.nama, tab_barang.gambar, tab_barang.stok, tab_barang.keterangan, tab_barang.spesifikasi, tab_barang.merk, IFNULL( GROUP_CONCAT(stock_opname_detail.lokasi),NULL) AS lokasi');
     $this->datatables->from('tab_barang');
     //add this line for join
     $this->datatables->join('master_group', 'tab_barang.kode_group = master_group.kode_group');
     $this->datatables->join('stock_opname_detail', 'stock_opname_detail.kode_barang = tab_barang.kode_barang', 'LEFT');
-    // $this->datatables->group_by('tab_barang.kode_barang');
+    $this->datatables->group_by('tab_barang.kode_barang');
     $this->datatables->add_column('action', anchor(site_url('tab_barang/read/$1'), '<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm')) . "
             " . anchor(site_url('tab_barang/update/$1'), '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm')) . "
                 " . anchor(site_url('tab_barang/delete/$1'), '<i class="fa fa-trash-o" aria-hidden="true"></i>', 'class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'kode_barang');
