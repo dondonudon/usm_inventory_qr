@@ -40,7 +40,7 @@ class Laporan_barang_masuk extends CI_Controller
             $row[]  = $customers->tanggal;
             $row[]  = '<a class="btn btn-sm btn-primary" href="' . base_url('upload/qr/' . $customers->qrcode) . '" title="Edit" target="_blank">QR</a>';
             $row[]  = '<a class="btn btn-sm btn-primary" href="' . base_url('laporan_barang_masuk/read/' . $customers->nostockopname) . '" title="Edit" target="_blank">Detail</a>';
-            $row[]  = '<a class="btn btn-sm btn-primary" href="' . base_url('laporan_barang_masuk/print/' . $customers->nostockopname) . '" title="Edit" target="_blank">Print</a>';
+            // $row[]  = '<a class="btn btn-sm btn-primary" href="' . base_url('laporan_barang_masuk/print/' . $customers->nostockopname) . '" title="Edit" target="_blank">Print</a>';
             $data[] = $row;
 
             $sum += $customers->jumlah;

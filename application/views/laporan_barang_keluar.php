@@ -53,7 +53,7 @@
                                     <th>Tanggal</th>
                                     <th>QR</th>
                                     <th>View</th>
-                                    <th>Print</th>
+                                    <!-- <th>Print</th> -->
                                 </tr>
                             </thead>
                             <tbody>

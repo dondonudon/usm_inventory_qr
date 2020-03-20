@@ -38,6 +38,7 @@ if (empty($tanggal_a) || empty($tanggal_b)) {
         <tr>
             <td>No</td>
             <td>Nama Barang</td>
+            <td>Merk</td>
             <td>Gambar</td>
             <td>Lokasi</td>
             <td>Sumber Dana</td>
@@ -54,6 +55,7 @@ if (empty($tanggal_a) || empty($tanggal_b)) {
         <tr>
             <td> <?php echo $no; ?></td>
             <td> <?php echo $data['nama']; ?></td>
+            <td> <?php echo $data['merk']; ?></td>
             <td> <img src="<?php echo base_url() . 'upload/image/' . $data['gambar']; ?>" alt="<?php echo $data['nama']; ?>" width="100"></td>
             <td> <?php echo $data['lokasi']; ?></td>
             <td> <?php echo $data['sumber']; ?></td>
