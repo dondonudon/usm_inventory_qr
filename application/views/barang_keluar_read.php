@@ -4,14 +4,16 @@ $data = $this->db->query("SELECT
                                 t.id_s_kasir,
                                 t.nostokkasir,
                                 t.ket,
+                                t.tanggal,
+                                t.nota,
                                 td.stok,
-                                
+                                td.alasan,
                                 t.datetime,
                                 td.qrcode,
                                 td.kode_barang,
                                 tb.nama
-                                
-                                
+
+
                             FROM
                                 master_stok_kasir t
                             INNER JOIN master_stok_kasir_detail td ON
@@ -37,21 +39,18 @@ $data = $this->db->query("SELECT
                             <div style="padding-bottom: 10px;">
                                 <table width="100%">
                                     <tr>
-                                        <?php $row = $data->row(); ?>
+                                        <?php $row = $data->row();?>
                                         <td>No Transaksi</td>
                                         <td>:</td>
                                         <td><?php echo $row->nostokkasir; ?></td>
                                         <td>Tgl Transaksi</td>
                                         <td>:</td>
-                                        <td><?php echo $row->datetime; ?></td>
+                                        <td><?php echo $row->tanggal; ?></td>
                                     </tr>
                                     <tr>
                                         <td>Nama Toko</td>
                                         <td>:</td>
                                         <td><?php echo $row->ket; ?></td>
-                                        <!-- <td>Jumlah</td>
-                                        <td>:</td>
-                                        <td><?php echo rupiah($row->jumlah); ?></td> -->
                                     </tr>
                                     <tr>
                                         <td></td>
@@ -66,6 +65,7 @@ $data = $this->db->query("SELECT
                                             <tr>
                                                 <td>Nama Barang</td>
                                                 <td>QTY</td>
+                                                <td>Alasan</td>
                                                 <!-- <td>Harga</td>
                                                 <td>Subtotal</td> -->
                                                 <td>QR</td>
@@ -75,14 +75,16 @@ $data = $this->db->query("SELECT
                                         <tbody>
                                             <?php foreach ($data->result_array() as $isi) {
 
-                                            ?>
+ ?>
                                                 <tr>
                                                     <td><?php echo $isi['nama']; ?></td>
                                                     <td><?php echo $isi['stok']; ?></td>
+                                                    <td><?php echo $isi['alasan']; ?></td>
                                                     <td><a class="btn btn-sm btn-primary" href="<?php echo base_url() . '/upload/qr/' . $isi['qrcode']; ?>" title="Edit" target="_blank">QR</a></td>
                                                     <!-- <td> <img src="<?php echo base_url() . '/upload/qr/' . $isi['qrcode']; ?>" height="150" width="150"> </td> -->
                                                 </tr>
-                                            <?php }; ?>
+                                            <?php }
+;?>
                                         </tbody>
 
                                         <!-- <tfoot>

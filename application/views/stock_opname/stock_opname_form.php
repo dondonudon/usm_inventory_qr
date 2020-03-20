@@ -1,5 +1,5 @@
+<?php $notrans = $_SESSION['id_users'] . "" . nostockopname();?>
 <div class="content-wrapper">
-
     <section class="content">
         <div class="box box-warning box-solid">
             <div class="box-header with-border">
@@ -7,23 +7,18 @@
                 <div class="pull-right"><a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#ModalaAdd"><span class="fa fa-plus"></span> Tambah Barang</a></div>
             </div>
             <table class='table table-bordered table-striped'>
-                <form name="form" id="form" action="<?php base_url(''); ?>stock_opname/insert_trans" method="post">
+                <form name="form" id="form" action="<?php base_url('');?>stock_opname/insert_trans" method="post">
                     <tr>
-                        <td width="100px">No Transaksi</td>
-                        <?php $notrans = $_SESSION['id_users'] . "" . nostockopname(); ?>
-                        <td width="200px">
-                            <?php echo $notrans; ?></td>
-                        <td width="100px">Tanggal</td>
-                        <td width="100px">
-                            <?php echo date('Y-m-d'); ?></strong></td>
-
+                        <!-- <td >No Transaksi</td>
+                        <td><input name="nota" class="form-control" rows="2" id="nota" required></td> -->
+                        <td>Nama Toko</td>
+                        <td><input name="ket" class="form-control" rows="2" id="ket" required></td>
+                        <td>Sumber Dana</td>
+                        <td><input name="sumber" class="form-control" rows="2" id="sumber" required></td>
                     </tr>
                     <tr>
-                        <td>Nama Toko</td>
-                        <td><input class="form-control" rows="2" name="ket" id="ket" required></td>
-                        <td>Jam</td>
-                        <td><?php echo date('H:i'); ?></td>
-
+                        <td >Tanggal</td>
+                        <td ><input type="date" name="tanggal" id="tanggal"></td>
                     </tr>
             </table>
 
@@ -31,7 +26,6 @@
                 <table class="table table-bordered table-striped" id="mydata">
                     <thead>
                         <tr>
-                            <th>Kode</th>
                             <th>Nama Barang</th>
                             <th>Stok</th>
                             <th>Harga</th>
@@ -77,6 +71,12 @@
                                             <input type="text" class="form-control" name="harga" id="harga" placeholder="Harga" required />
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-3">Lokasi</label>
+                                        <div class="col-xs-9">
+                                            <input type="text" class="form-control" name="lokasi" id="lokasi" placeholder="Lokasi" required />
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <input type="hidden" name="nostockopname" id="nostockopname" value="<?php echo $notrans; ?></td>">
@@ -115,6 +115,12 @@
                                         <label class="control-label col-xs-3">Harga</label>
                                         <div class="col-xs-9">
                                             <input type="text" class="form-control" name="harga_edit" id="harga2" placeholder="Harga" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-3">Lokasi</label>
+                                        <div class="col-xs-9">
+                                            <input type="text" class="form-control" name="lokasi_edit" id="lokasi2" placeholder="Lokasi" />
                                         </div>
                                     </div>
                                 </div>
@@ -182,7 +188,6 @@
                                 for (i = 0; i < data.length; i++) {
                                     html += '<tr>' +
                                         '<td hidden>' + data[i].id_stock_opname + '</td>' +
-                                        '<td>' + data[i].nostockopname + '</td>' +
                                         '<td>' + data[i].nama + '</td>' +
                                         '<td>' + data[i].stok + '</td>' +
                                         '<td>' + data[i].harga + '</td>' +
@@ -215,6 +220,7 @@
                                     $('[name="nama"]').val(data.nama);
                                     $('[name="stok_edit"]').val(data.stok);
                                     $('[name="harga_edit"]').val(data.harga);
+                                    $('[name="lokasi_edit"]').val(data.lokasi);
                                     $('[name="id_stock_opname"]').val(data.id_stock_opname);
                                 });
                             }
@@ -235,6 +241,9 @@
                         var kode_barang = $('#kode_barang').val();
                         var stok = $('#stok').val();
                         var harga = $('#harga').val();
+                        var lokasi = $('#lokasi').val();
+                        var tanggal = $('#tanggal').val();
+                        var nota = $('#nota').val();
                         var nostockopname = $('#nostockopname').val();
                         $.ajax({
                             type: "POST",
@@ -244,12 +253,16 @@
                                 nostockopname: nostockopname,
                                 kode_barang: kode_barang,
                                 stok: stok,
-                                harga: harga
+                                harga: harga,
+                                lokasi: lokasi,
+                                tanggal: tanggal,
+                                nota:nota
                             },
                             success: function(data) {
                                 $('[name="kode_barang"]').val("");
                                 $('[name="stok"]').val("");
                                 $('[name="harga"]').val("");
+                                $('[name="lokasi"]').val("");
                                 // $('#ModalaAdd').modal('hide');
                                 tampil_data_barang();
                             }
@@ -262,6 +275,7 @@
                         var id_stock_opname = $('#id_stock_opname').val();
                         var stok = $('#stok2').val();
                         var harga = $('#harga2').val();
+                        var lokasi = $('#lokasi2').val();
                         $.ajax({
                             type: "POST",
                             url: "<?php echo base_url('stock_opname/update_barang') ?>",
@@ -269,12 +283,14 @@
                             data: {
                                 id_stock_opname: id_stock_opname,
                                 stok: stok,
-                                harga: harga
+                                harga: harga,
+                                lokasi:lokasi
                             },
                             success: function(data) {
                                 $('[name="nama"]').val("");
                                 $('[name="stok"]').val("");
                                 $('[name="harga"]').val("");
+                                $('[name="lokasi"]').val("");
                                 $('#ModalaEdit').modal('hide');
                                 tampil_data_barang();
                             }

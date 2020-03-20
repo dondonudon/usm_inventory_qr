@@ -8,11 +8,13 @@
 
 
 <table class='table table-bordered>'>
-	    <tr><td>Kode Group</td><td><?php echo $kode_group; ?></td></tr>
+	    <tr><td>Kode Barang</td><td><?php echo $kode_barang; ?></td></tr>
 	    <tr><td>Nama</td><td><?php echo $nama; ?></td></tr>
-	    <tr><td>Gambar</td><td><img src="<?php echo base_url() . '/upload/image/' . $gambar; ?>"></td></tr>
-	    <tr><td>Stok</td><td><?php echo $stok; ?></td></tr>
-	    <tr><td>Keterangan</td><td><?php echo $keterangan; ?></td></tr>
+	    <tr><td>Gambar</td><td><img src="<?php echo base_url() . '/upload/image/' . $gambar; ?>" width="200px"></td></tr>
+	    <tr><td>Jumlah</td><td><?php echo $stok; ?></td></tr>
+		<tr><td>Merk</td><td><?php echo $merk; ?></td></tr>
+		<tr><td>Spesifikasi</td><td><?php echo $spesifikasi; ?></td></tr>
+	    <tr><td>Lokasi</td><td><?php echo $keterangan; ?></td></tr>
 	    <!-- <tr><td>Opsi1</td><td><?php echo $opsi1; ?></td></tr>
 	    <tr><td>Opsi2</td><td><?php echo $opsi2; ?></td></tr>
 	    <tr><td>Opsi3</td><td><?php echo $opsi3; ?></td></tr>

@@ -1,3 +1,4 @@
+<?php $notrans = $_SESSION['id_users'] . "" . nostokkasir();?>
 <div class="content-wrapper">
 
     <section class="content">
@@ -7,22 +8,16 @@
                 <div class="pull-right"><a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#ModalaAdd"><span class="fa fa-plus"></span> Tambah Barang</a></div>
             </div>
             <table class='table table-bordered table-striped'>
-                <form name="form" id="form" action="<?php base_url(''); ?>master_stok_kasir/insert_trans" method="post">
+                <form name="form" id="form" action="<?php base_url('');?>master_stok_kasir/insert_trans" method="post">
+                    <!-- <tr>
+                        <td>No Transaksi</td>
+                        <td><input type="text" class="form-control" rows="2" name="nota" id="nota"></td>    
+                    </tr> -->
                     <tr>
                         <td>Nama Toko</td>
                         <td><input class="form-control" rows="2" name="ket" id="ket" required></td>
                         <td>Tanggal</td>
-                        <td><?php echo date('Y-m-d'); ?></strong></td>
-
-                    </tr>
-                    <tr>
-                        <td>No Transaksi</td>
-                        <?php $notrans = $_SESSION['id_users'] . "" . nostokkasir(); ?>
-                        <td>
-                            <?php echo $notrans; ?></td>
-                        <td>Jam</td>
-                        <td><?php echo date('H:i'); ?></td>
-
+                        <td><input type="date" name="tanggal" id="tanggal"></strong></td>
                     </tr>
             </table>
 
@@ -30,9 +25,9 @@
                 <table class="table table-bordered table-striped" id="mydata">
                     <thead>
                         <tr>
-                            <th>Kode</th>
                             <th>Nama Barang</th>
                             <th>Stok</th>
+                            <th>Alasan</th>
                             <th style="text-align: right;">Aksi</th>
                         </tr>
                     </thead>
@@ -75,6 +70,16 @@
                                         <label class="control-label col-xs-3">Stok</label>
                                         <div class="col-xs-9">
                                             <input type="text" class="form-control" name="stok" id="stok" placeholder="Stok" required />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-3">Alasan</label>
+                                        <div class="col-xs-9">
+                                        <select name="alasan" id="alasan" class="form-control select2 select2-hidden-accessible" data-placeholder="Alasan" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
+                                            <option value="Rusak">Rusak</option>
+                                            <option value="Hilang">Hilang</option>
+                                        </select>
                                         </div>
                                     </div>
 
@@ -182,9 +187,9 @@
                                 for (i = 0; i < data.length; i++) {
                                     html += '<tr>' +
                                         '<td hidden>' + data[i].id_s_kasir + '</td>' +
-                                        '<td>' + data[i].nostokkasir + '</td>' +
                                         '<td>' + data[i].nama + '</td>' +
                                         '<td>' + data[i].stok + '</td>' +
+                                        '<td>' + data[i].alasan + '</td>' +
                                         '<td style="text-align:right;">' +
                                         '<a href="javascript:;" class="btn btn-info btn-xs item_edit" data="' + data[i].id_s_kasir + '">Edit</a>' + ' ' +
                                         '<a href="javascript:;" class="btn btn-danger btn-xs item_hapus" data="' + data[i].id_s_kasir + '">Hapus</a>' +
@@ -231,6 +236,9 @@
                     $('#btn_simpan').on('click', function() {
                         var kode_barang = $('#kode_barang').val();
                         var stok = parseInt($('#stok').val());
+                        var alasan = $('#alasan').val();
+                        var tanggal = $('#tanggal').val();
+                        var nota = $('#nota').val();
                         var nostokkasir = $('#nostokkasir').val();
                         var stok_gudang = parseInt($('#stok_gudang').val());
 
@@ -246,11 +254,15 @@
                                 data: {
                                     nostokkasir: nostokkasir,
                                     kode_barang: kode_barang,
-                                    stok: stok
+                                    stok: stok,
+                                    alasan:alasan,
+                                    tanggal:tanggal,
+                                    nota:nota
                                 },
                                 success: function(data) {
                                     $('[name="kode_barang"]').val("0");
                                     $('[name="stok"]').val("");
+                                    $('[name="alasan"]').val("");
                                     // $('#ModalaAdd').modal('hide');
                                     tampil_data_barang();
                                 }

@@ -38,7 +38,7 @@
                                 </div>
                             </div>
                         </div>
-                        <form action="<?php base_url(); ?>laporan_barang_keluar/pdf" method="post">
+                        <form action="<?php base_url();?>laporan_barang_keluar/report" method="post">
                             <input type="hidden" name="tanggal_a" id="tanggal_a">
                             <input type="hidden" name="tanggal_b" id="tanggal_b">
                             <button type="submit" class="btn btn-success">Print</button>
@@ -47,12 +47,13 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Notrans</th>
+                                    <th>Nota</th>
                                     <!-- <th>Kasir</th> -->
                                     <!-- <th>Jumlah</th> -->
                                     <th>Tanggal</th>
                                     <th>QR</th>
-                                    <th>Action</th>
+                                    <th>View</th>
+                                    <th>Print</th>
                                 </tr>
                             </thead>
                             <tbody>

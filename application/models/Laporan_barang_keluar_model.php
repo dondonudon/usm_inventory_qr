@@ -12,7 +12,7 @@ class Laporan_barang_keluar_model extends CI_Model
 
     //var $table = 'customers';
     public $column_order  = array('master_stok_kasir.datetime'); //set column field database for datatable orderable
-    public $column_search = array('master_stok_kasir.nostokkasir, master_stok_kasir.datetime'); //set column field database for datatable searchable
+    public $column_search = array('nostokkasir', 'tanggal'); //set column field database for datatable searchable
     //var $order = array('id' => 'asc'); // default order
     //public $order = 'DESC';
 
@@ -27,11 +27,11 @@ class Laporan_barang_keluar_model extends CI_Model
     {
 
         //add custom filter here
-        $tgl_a = $this->input->post('tgl_a') . " 00:00:00";
-        $tgl_b = $this->input->post('tgl_b') . " 23:59:59";
+        $tgl_a = $this->input->post('tgl_a');
+        $tgl_b = $this->input->post('tgl_b');
         if ($this->input->post('tgl_a') && $this->input->post('tgl_b')) {
-            $this->db->where('stock_opname.datetime >=', $tgl_a);
-            $this->db->where('stock_opname.datetime <=', $tgl_b);
+            $this->db->where('master_stok_kasir.tanggal >=', $tgl_a);
+            $this->db->where('master_stok_kasir.tanggal <=', $tgl_b);
         }
 
         $this->db->from($this->table);
@@ -96,12 +96,19 @@ class Laporan_barang_keluar_model extends CI_Model
     }
     public function excel($tanggal_a, $tanggal_b)
     {
-        $tgl_a = $tanggal_a . " 00:00:00";
-        $tgl_b = $tanggal_b . " 23:59:59";
+        $tgl_a = $tanggal_a;
+        $tgl_b = $tanggal_b;
         if (empty($tanggal_a) || empty($tanggal_b)) {
-            $query = $this->db->query("SELECT nostokkasir, ket, datetime FROM master_stok_kasir ");
+            $query = $this->db->query("SELECT * 
+                                        FROM master_stok_kasir 
+                                        INNER JOIN master_stok_kasir_detail ON master_stok_kasir.nostokkasir = master_stok_kasir_detail.nostokkasir
+                                        INNER JOIN tab_barang ON tab_barang.kode_barang = master_stok_kasir_detail.kode_barang");
         } else {
-            $query = $this->db->query("SELECT nostokkasir, ket, datetime FROM master_stok_kasir WHERE datetime BETWEEN '$tgl_a' AND '$tgl_b' ");
+            $query = $this->db->query("SELECT * 
+                                        FROM master_stok_kasir 
+                                        INNER JOIN master_stok_kasir_detail ON master_stok_kasir.nostokkasir = master_stok_kasir_detail.nostokkasir
+                                        INNER JOIN tab_barang ON tab_barang.kode_barang = master_stok_kasir_detail.kode_barang
+                                        WHERE tanggal BETWEEN '$tgl_a' AND '$tgl_b' ");
         }
         return $query->result();
     }

@@ -11,8 +11,8 @@ class Laporan_barang_masuk_model extends CI_Model
     public $id    = 'id_stock_opname';
 
     //var $table = 'customers';
-    public $column_order  = array('stock_opname.datetime'); //set column field database for datatable orderable
-    public $column_search = array('stock_opname.nostockopname,stock_opname.datetime'); //set column field database for datatable searchable
+    public $column_order  = array('tanggal'); //set column field database for datatable orderable
+    public $column_search = array('jumlah', 'tanggal'); //set column field database for datatable searchable
     //var $order = array('id' => 'asc'); // default order
     //public $order = 'DESC';
 
@@ -27,11 +27,11 @@ class Laporan_barang_masuk_model extends CI_Model
     {
 
         //add custom filter here
-        $tgl_a = $this->input->post('tgl_a') . " 00:00:00";
-        $tgl_b = $this->input->post('tgl_b') . " 23:59:59";
+        $tgl_a = $this->input->post('tgl_a');
+        $tgl_b = $this->input->post('tgl_b');
         if ($this->input->post('tgl_a') && $this->input->post('tgl_b')) {
-            $this->db->where('stock_opname.datetime >=', $tgl_a);
-            $this->db->where('stock_opname.datetime <=', $tgl_b);
+            $this->db->where('stock_opname.tanggal >=', $tgl_a);
+            $this->db->where('stock_opname.tanggal <=', $tgl_b);
         }
 
         $this->db->from($this->table);
@@ -96,12 +96,15 @@ class Laporan_barang_masuk_model extends CI_Model
     }
     public function excel($tanggal_a, $tanggal_b)
     {
-        $tgl_a = $tanggal_a . " 00:00:00";
-        $tgl_b = $tanggal_b . " 23:59:59";
+        $tgl_a = $tanggal_a;
+        $tgl_b = $tanggal_b;
         if (empty($tanggal_a) || empty($tanggal_b)) {
-            $query = $this->db->query("SELECT stock_opname.nostockopname, stock_opname.ket, stock_opname.jumlah, stock_opname.datetime FROM stock_opname ");
+            $query = $this->db->query("SELECT *, tab_barang.nama as nama_barang, stock_opname_detail.stok as qty
+                                        FROM stock_opname 
+                                        INNER JOIN stock_opname_detail ON stock_opname.nostockopname = stock_opname_detail.nostockopname
+                                        INNER JOIN tab_barang ON tab_barang.kode_barang = stock_opname_detail.kode_barang");
         } else {
-            $query = $this->db->query("SELECT stock_opname.nostockopname, stock_opname.ket, stock_opname.jumlah, stock_opname.datetime FROM stock_opname WHERE stock_opname.datetime BETWEEN '$tgl_a' AND '$tgl_b' ");
+            $query = $this->db->query("SELECT * FROM stock_opname INNER JOIN stock_opname_detail ON stock_opname.nostockopname = stock_opname_detail.nostockopname WHERE stock_opname.tanggal BETWEEN '$tgl_a' AND '$tgl_b' ");
         }
         return $query->result();
     }

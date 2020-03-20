@@ -33,6 +33,9 @@ class Tab_barang extends CI_Controller
         if ($row) {
             $data = array(
                 'kode_barang' => $row->kode_barang,
+                // 'kode_manual' => $row->kode_manual,
+                'merk'        => $row->merk,
+                'spesifikasi' => $row->spesifikasi,
                 'kode_group'  => $row->kode_group,
                 'nama'        => $row->nama,
                 'gambar'      => $row->gambar,
@@ -52,6 +55,9 @@ class Tab_barang extends CI_Controller
             'button'      => 'Create',
             'action'      => site_url('tab_barang/create_action'),
             'kode_barang' => set_value('kode_barang'),
+            // 'kode_manual' => set_value('kode_manual'),
+            'spesifikasi' => set_value('spesifikasi'),
+            'merk'        => set_value('merk'),
             'kode_group'  => set_value('kode_group'),
             'nama'        => set_value('nama'),
             'gambar'      => set_value('gambar'),
@@ -73,11 +79,14 @@ class Tab_barang extends CI_Controller
             $this->create();
         } else {
             $data = array(
-                'kode_group' => $this->input->post('kode_group', true),
-                'nama'       => $this->input->post('nama', true),
-                'gambar'     => 'b_' . time() . '.' . $ext,
-                'keterangan' => $this->input->post('keterangan', true),
-                'datetime'   => date('Y-m-d H:i:s'),
+                'kode_group'  => $this->input->post('kode_group', true),
+                'nama'        => $this->input->post('nama', true),
+                // 'kode_manual' => $this->input->post('kode_manual', true),
+                'spesifikasi' => $this->input->post('spesifikasi', true),
+                'merk'        => $this->input->post('merk', true),
+                'gambar'      => 'b_' . time() . '.' . $ext,
+                'keterangan'  => $this->input->post('keterangan', true),
+                'datetime'    => date('Y-m-d H:i:s'),
             );
 
             //UPLOAD GAMBAR
@@ -106,6 +115,9 @@ class Tab_barang extends CI_Controller
                 'kode_barang' => set_value('kode_barang', $row->kode_barang),
                 'kode_group'  => set_value('kode_group', $row->kode_group),
                 'nama'        => set_value('nama', $row->nama),
+                // 'kode_manual' => set_value('kode_manual', $row->kode_manual),
+                'spesifikasi' => set_value('spesifikasi', $row->spesifikasi),
+                'merk'        => set_value('merk', $row->merk),
                 'gambar'      => set_value('gambar', $row->gambar),
                 'stok'        => set_value('stok', $row->stok),
                 'keterangan'  => set_value('keterangan', $row->keterangan),
@@ -129,6 +141,9 @@ class Tab_barang extends CI_Controller
             $data = array(
                 //'kode_group'  => $this->input->post('kode_group', true),
                 'nama'       => $this->input->post('nama', true),
+                // 'kode_manual' => $this->input->post('kode_manual', true),
+                'merk'       => $this->input->post('merk', true),
+                'spesifikasi' => $this->input->post('spesifikasi', true),
                 'gambar'     => 'b_' . time() . '.' . $ext,
                 'keterangan' => $this->input->post('keterangan', true),
                 'datetime'   => date('Y-m-d H:i:s'),
@@ -145,9 +160,12 @@ class Tab_barang extends CI_Controller
         } else {
             $data = array(
                 // 'kode_group'  => $this->input->post('kode_group', true),
-                'nama'       => $this->input->post('nama', true),
-                'keterangan' => $this->input->post('keterangan', true),
-                'datetime'   => date('Y-m-d H:i:s'),
+                'nama'        => $this->input->post('nama', true),
+                // 'kode_manual' => $this->input->post('kode_manual', true),
+                'spesifikasi' => $this->input->post('spesifikasi', true),
+                'merk'        => $this->input->post('merk', true),
+                'keterangan'  => $this->input->post('keterangan', true),
+                'datetime'    => date('Y-m-d H:i:s'),
             );
         }
 
@@ -180,6 +198,9 @@ class Tab_barang extends CI_Controller
     {
         $this->form_validation->set_rules('kode_group', 'kode group', 'trim|required');
         $this->form_validation->set_rules('nama', 'nama', 'trim|required');
+        // $this->form_validation->set_rules('kode_manual', 'kode_manual', 'trim|required');
+        $this->form_validation->set_rules('spesifikasi', 'spesifikasi', 'trim|required');
+        $this->form_validation->set_rules('merk', 'merk', 'trim|required');
         //$this->form_validation->set_rules('gambar', 'gambar', 'trim|required');
         //$this->form_validation->set_rules('stok', 'stok', 'trim|required');
         $this->form_validation->set_rules('keterangan', 'keterangan', 'trim|required');
@@ -214,6 +235,8 @@ class Tab_barang extends CI_Controller
         xlsWriteLabel($tablehead, $kolomhead++, "Nama");
         xlsWriteLabel($tablehead, $kolomhead++, "Gambar");
         xlsWriteLabel($tablehead, $kolomhead++, "Stok");
+        xlsWriteLabel($tablehead, $kolomhead++, "Spesifikasi");
+        xlsWriteLabel($tablehead, $kolomhead++, "Merk");
         xlsWriteLabel($tablehead, $kolomhead++, "Keterangan");
 
         foreach ($this->Tab_barang_model->get_all() as $data) {
@@ -226,6 +249,8 @@ class Tab_barang extends CI_Controller
             xlsWriteLabel($tablebody, $kolombody++, $data->nama);
             xlsWriteLabel($tablebody, $kolombody++, $data->gambar);
             xlsWriteNumber($tablebody, $kolombody++, $data->stok);
+            xlsWriteLabel($tablebody, $kolombody++, $data->spesifikasi);
+            xlsWriteLabel($tablebody, $kolombody++, $data->merk);
             xlsWriteLabel($tablebody, $kolombody++, $data->keterangan);
 
             $tablebody++;

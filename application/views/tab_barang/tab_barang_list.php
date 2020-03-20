@@ -17,10 +17,13 @@
                 <tr>
                     <th width="30px">No</th>
 		    <th>Group</th>
-		    <th>Nama</th>
+		    <th>Kode Barang</th>
+            <th>Nama</th>
 		    <!-- <th>Gambar</th> -->
-		    <th>Stok</th>
-		    <th>Keterangan</th>
+		    <th>Jumlah</th>
+            <th>Merk</th>
+            <th>Spesifikasi</th>
+		    <th>Lokasi</th>
 		    <th width="200px">Action</th>
                 </tr>
             </thead>
@@ -68,8 +71,12 @@
                 columns: [
                     { "data" : "kode_barang" , "orderable" : false },
                     {"data": "nama_group" },
+                    {"data": "kode_barang" },
                     {"data": "nama" },
-                    {"data": "stok" },{"data": "keterangan" },
+                    {"data": "stok" },
+                    {"data": "merk" },
+                    {"data": "spesifikasi" },
+                    {"data": "lokasi", "searchable":false },
                     { "data" : "action" , "orderable" : false, "className" : "text-center" }
                     ],
                 order: [[0, 'desc' ]],

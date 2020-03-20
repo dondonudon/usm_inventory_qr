@@ -47,9 +47,9 @@
             <!-- Logo -->
             <a href="<?php echo base_url() ?>welcome" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>INV</b></span>
+                <span class="logo-mini"><b>PAUD</b></span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b></b> INVENTORY</span>
+                <span class="logo-lg"><b></b>PAUD AN-NAHL</span>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top">
@@ -104,12 +104,12 @@
         <!-- Left side column. contains the logo and sidebar -->
         <aside class="main-sidebar">
             <!-- sidebar: style can be found in sidebar.less -->
-            <?php $this->load->view('template/sidebar'); ?>
+            <?php $this->load->view('template/sidebar');?>
         </aside>
 
         <?php
-        echo $contents;
-        ?>
+echo $contents;
+?>
 
 
         <!-- /.content-wrapper -->

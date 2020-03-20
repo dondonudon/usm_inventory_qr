@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 18, 2020 at 12:01 PM
+-- Generation Time: Mar 18, 2020 at 10:52 PM
 -- Server version: 5.7.29-0ubuntu0.18.04.1
 -- PHP Version: 7.2.28-3+ubuntu18.04.1+deb.sury.org+1
 
@@ -37,8 +37,8 @@ CREATE TABLE `counter` (
 
 INSERT INTO `counter` (`id`, `counter`) VALUES
 ('A', 0),
-('B', 12),
-('C', 5),
+('B', 20),
+('C', 6),
 ('D', 0);
 
 -- --------------------------------------------------------
@@ -56,17 +56,6 @@ CREATE TABLE `log` (
   `tipe` varchar(1) NOT NULL COMMENT 'A=pabrik-gudang, B=gudang-kasir, C=penjualan, D=retur_kasir, E=gudang-agen',
   `datetime` datetime NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `log`
---
-
-INSERT INTO `log` (`id_log`, `ket`, `kode_m_kasir`, `kode_barang`, `qty`, `tipe`, `datetime`) VALUES
-(34, '8C2020030005', NULL, 2, 5, 'B', '2020-03-18 11:11:36'),
-(33, '8C2020030005', NULL, 1, 5, 'B', '2020-03-18 11:11:36'),
-(32, '2B2020030012', NULL, 1, 100, 'A', '2020-03-17 18:20:18'),
-(31, '2B2020030012', NULL, 3, 100, 'A', '2020-03-17 18:20:18'),
-(30, '2B2020030012', NULL, 2, 100, 'A', '2020-03-17 18:20:18');
 
 -- --------------------------------------------------------
 
@@ -125,19 +114,14 @@ INSERT INTO `master_kasir` (`kode_m_kasir`, `nama`, `alamat`, `kota`, `telp`, `P
 CREATE TABLE `master_stok_kasir` (
   `id_s_kasir` int(5) NOT NULL,
   `nostokkasir` varchar(12) NOT NULL,
+  `nota` varchar(15) NOT NULL,
   `ket` varchar(20) DEFAULT NULL,
   `id_user` int(2) NOT NULL,
   `retur` int(1) NOT NULL DEFAULT '0',
   `qrcode` varchar(100) NOT NULL,
+  `tanggal` date DEFAULT NULL,
   `datetime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
-
---
--- Dumping data for table `master_stok_kasir`
---
-
-INSERT INTO `master_stok_kasir` (`id_s_kasir`, `nostokkasir`, `ket`, `id_user`, `retur`, `qrcode`, `datetime`) VALUES
-(6, '8C2020030005', 'asdas', 8, 0, '8C20200300051584504696.png', '2020-03-18 11:11:36');
 
 -- --------------------------------------------------------
 
@@ -150,17 +134,10 @@ CREATE TABLE `master_stok_kasir_detail` (
   `nostokkasir` varchar(12) NOT NULL,
   `kode_barang` int(5) DEFAULT NULL,
   `stok` int(10) DEFAULT NULL,
+  `alasan` varchar(15) NOT NULL,
   `qrcode` varchar(100) NOT NULL,
   `datetime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
-
---
--- Dumping data for table `master_stok_kasir_detail`
---
-
-INSERT INTO `master_stok_kasir_detail` (`id_s_kasir`, `nostokkasir`, `kode_barang`, `stok`, `qrcode`, `datetime`) VALUES
-(7, '8C2020030005', 1, 5, '8C20200300051584504688.png', '2020-03-18 11:11:28'),
-(6, '8C2020030005', 2, 5, '8C20200300051584504693.png', '2020-03-18 11:11:33');
 
 -- --------------------------------------------------------
 
@@ -171,19 +148,15 @@ INSERT INTO `master_stok_kasir_detail` (`id_s_kasir`, `nostokkasir`, `kode_baran
 CREATE TABLE `stock_opname` (
   `id_stock_opname` int(5) NOT NULL,
   `nostockopname` varchar(12) NOT NULL,
+  `nota` varchar(15) NOT NULL,
   `ket` varchar(50) NOT NULL,
   `id_user` int(2) NOT NULL,
   `jumlah` int(11) NOT NULL,
   `qrcode` varchar(100) NOT NULL,
+  `tanggal` date DEFAULT NULL,
+  `sumber` varchar(50) NOT NULL,
   `datetime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
-
---
--- Dumping data for table `stock_opname`
---
-
-INSERT INTO `stock_opname` (`id_stock_opname`, `nostockopname`, `ket`, `id_user`, `jumlah`, `qrcode`, `datetime`) VALUES
-(12, '2B2020030012', 'nama tok0', 2, 300000, '2B20200300121584444018.png', '2020-03-17 18:20:18');
 
 -- --------------------------------------------------------
 
@@ -198,18 +171,10 @@ CREATE TABLE `stock_opname_detail` (
   `stok` int(10) DEFAULT NULL,
   `harga` int(11) NOT NULL,
   `jumlah` int(11) NOT NULL,
+  `lokasi` varchar(20) NOT NULL,
   `qrcode` varchar(100) NOT NULL,
   `datetime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
-
---
--- Dumping data for table `stock_opname_detail`
---
-
-INSERT INTO `stock_opname_detail` (`id_stock_opname`, `nostockopname`, `kode_barang`, `stok`, `harga`, `jumlah`, `qrcode`, `datetime`) VALUES
-(26, '2B2020030012', 2, 100, 1000, 100000, '2B20200300121584443995.png', '2020-03-17 18:19:55'),
-(25, '2B2020030012', 3, 100, 1000, 100000, '2B20200300121584444008.png', '2020-03-17 18:20:08'),
-(27, '2B2020030012', 1, 100, 1000, 100000, '2B20200300121584443985.png', '2020-03-17 18:19:45');
 
 -- --------------------------------------------------------
 
@@ -219,22 +184,16 @@ INSERT INTO `stock_opname_detail` (`id_stock_opname`, `nostockopname`, `kode_bar
 
 CREATE TABLE `tab_barang` (
   `kode_barang` int(5) NOT NULL,
+  `kode_manual` varchar(15) NOT NULL,
   `kode_group` int(5) DEFAULT NULL,
   `nama` varchar(30) DEFAULT NULL,
   `gambar` varchar(225) DEFAULT NULL,
+  `spesifikasi` varchar(100) NOT NULL,
+  `merk` varchar(20) NOT NULL,
   `stok` int(20) DEFAULT '0',
   `keterangan` varchar(100) DEFAULT NULL,
   `datetime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
-
---
--- Dumping data for table `tab_barang`
---
-
-INSERT INTO `tab_barang` (`kode_barang`, `kode_group`, `nama`, `gambar`, `stok`, `keterangan`, `datetime`) VALUES
-(1, 1, 'barang1', 'b_1584416062.jpg', 95, 'asd', '2020-03-18 11:11:36'),
-(2, 1, 'barang2', 'b_1584416074.jpg', 95, 'asd', '2020-03-18 11:11:36'),
-(3, 2, 'barang3', 'b_1584416110.jpg', 100, 'asd', '2020-03-17 18:20:18');
 
 -- --------------------------------------------------------
 
@@ -305,7 +264,8 @@ INSERT INTO `tbl_menu` (`id_menu`, `title`, `url`, `icon`, `is_main_menu`, `urut
 (16, 'Barang Masuk', 'laporan_barang_masuk', 'fa fa-paperclip', 15, 1, 'y'),
 (0, 'Welcome', 'welcome', '', 0, 0, 'y'),
 (20, 'Master Data', '#', 'fa fa-database', 0, 1, 'y'),
-(21, 'Transaksi', '#', 'fa fa-opencart', 0, 2, 'y');
+(21, 'Barang Aset', '#', 'fa fa-opencart', 0, 2, 'y'),
+(5, 'profile', 'profile', '', 0, 0, 'y');
 
 -- --------------------------------------------------------
 
@@ -349,7 +309,7 @@ CREATE TABLE `tbl_user` (
 INSERT INTO `tbl_user` (`id_users`, `full_name`, `email`, `password`, `images`, `id_user_level`, `is_aktif`) VALUES
 (1, 'super', 'super@super.com', '$2y$10$pY0QMNqgoJA3KIJbXg.aGOCCE.escHQzGMvMB6E9pJnYOMlsSaxJW', 'atomix_user31.png', 1, 'y'),
 (106, 'kepsek', 'kepsek', '$2y$04$ScVg6soxrF/Lx6cJDovw/u1GG1rZLP4tkuL7XVUn8gftVWBIUfpeC', 'atomix_user31.png', 6, 'y'),
-(8, 'admin', 'admin@admin.com', '$2y$10$UKfQs1iG.OqH1xJCXYWVj.Eck7lrYB9vCAwq7An5Z74qfrsMjL6K.', 'atomix_user31.png', 2, 'y');
+(8, 'admin', 'admin@admin.com', '$2y$10$3mv7IUEUjbCp5eLDltBd9uEvSppH9KctYs6dkT7yxulg0vOGdtpxW', 'atomix_user31.png', 2, 'y');
 
 -- --------------------------------------------------------
 
@@ -382,6 +342,7 @@ CREATE TABLE `temp_master_stok_kasir` (
   `nostokkasir` varchar(12) NOT NULL,
   `kode_barang` int(5) DEFAULT NULL,
   `stok` int(10) DEFAULT NULL,
+  `alasan` varchar(15) NOT NULL,
   `qrcode` varchar(100) NOT NULL,
   `datetime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
@@ -399,6 +360,7 @@ CREATE TABLE `temp_stock_opname` (
   `stok` int(10) DEFAULT NULL,
   `harga` int(11) NOT NULL,
   `jumlah` int(11) NOT NULL,
+  `lokasi` varchar(20) NOT NULL,
   `qrcode` varchar(100) NOT NULL,
   `datetime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
@@ -460,7 +422,8 @@ ALTER TABLE `stock_opname_detail`
 -- Indexes for table `tab_barang`
 --
 ALTER TABLE `tab_barang`
-  ADD PRIMARY KEY (`kode_barang`) USING BTREE;
+  ADD PRIMARY KEY (`kode_barang`) USING BTREE,
+  ADD UNIQUE KEY `kode_manual` (`kode_manual`);
 
 --
 -- Indexes for table `tbl_hak_akses`
@@ -512,7 +475,7 @@ ALTER TABLE `temp_stock_opname`
 -- AUTO_INCREMENT for table `log`
 --
 ALTER TABLE `log`
-  MODIFY `id_log` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id_log` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 --
 -- AUTO_INCREMENT for table `master_group`
 --
@@ -527,27 +490,27 @@ ALTER TABLE `master_kasir`
 -- AUTO_INCREMENT for table `master_stok_kasir`
 --
 ALTER TABLE `master_stok_kasir`
-  MODIFY `id_s_kasir` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_s_kasir` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `master_stok_kasir_detail`
 --
 ALTER TABLE `master_stok_kasir_detail`
-  MODIFY `id_s_kasir` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_s_kasir` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `stock_opname`
 --
 ALTER TABLE `stock_opname`
-  MODIFY `id_stock_opname` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_stock_opname` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `stock_opname_detail`
 --
 ALTER TABLE `stock_opname_detail`
-  MODIFY `id_stock_opname` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_stock_opname` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `tab_barang`
 --
 ALTER TABLE `tab_barang`
-  MODIFY `kode_barang` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `kode_barang` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `tbl_hak_akses`
 --
@@ -557,7 +520,7 @@ ALTER TABLE `tbl_hak_akses`
 -- AUTO_INCREMENT for table `tbl_menu`
 --
 ALTER TABLE `tbl_menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT for table `tbl_setting`
 --
@@ -577,12 +540,12 @@ ALTER TABLE `tbl_user_level`
 -- AUTO_INCREMENT for table `temp_master_stok_kasir`
 --
 ALTER TABLE `temp_master_stok_kasir`
-  MODIFY `id_s_kasir` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=677;
+  MODIFY `id_s_kasir` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=681;
 --
 -- AUTO_INCREMENT for table `temp_stock_opname`
 --
 ALTER TABLE `temp_stock_opname`
-  MODIFY `id_stock_opname` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=529;
+  MODIFY `id_stock_opname` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=538;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
