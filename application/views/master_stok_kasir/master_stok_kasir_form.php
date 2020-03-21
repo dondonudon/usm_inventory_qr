@@ -79,6 +79,7 @@
                                         <select name="alasan" id="alasan" class="form-control select2 select2-hidden-accessible" data-placeholder="Alasan" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
                                             <option value="Rusak">Rusak</option>
                                             <option value="Hilang">Hilang</option>
+                                            <option value="Habis">Habis</option>
                                         </select>
                                         </div>
                                     </div>

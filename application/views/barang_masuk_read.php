@@ -43,12 +43,12 @@ $data = $this->db->query("SELECT
                                 <table width="100%">
                                     <tr>
                                         <?php $row = $data->row();?>
-                                        <td>No Transaksi</td>
-                                        <td>:</td>
-                                        <td><?php echo $row->nostockopname; ?></td>
-                                        <td>Tgl Transaksi</td>
+                                        <td>Tgl Pembelian</td>
                                         <td>:</td>
                                         <td><?php echo $row->tanggal; ?></td>
+                                        <td>Sumber Dana</td>
+                                        <td>:</td>
+                                        <td><?php echo $row->sumber; ?></td>
                                     </tr>
                                     <tr>
                                         <td>Nama Toko</td>
@@ -57,12 +57,6 @@ $data = $this->db->query("SELECT
                                         <td>Jumlah</td>
                                         <td>:</td>
                                         <td><?php echo rupiah($row->jumlah); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Sumber Dana</td>
-                                        <td>:</td>
-                                        <td><?php echo $row->sumber; ?></td>
-
                                     </tr>
                                     <tr>
                                         <td></td>
@@ -75,6 +69,7 @@ $data = $this->db->query("SELECT
                                     <table class='table table-bordered'>
                                         <thead>
                                             <tr>
+                                                <td>Kode Barang</td>
                                                 <td>Nama Barang</td>
                                                 <td>Lokasi</td>
                                                 <td>QTY</td>
@@ -90,6 +85,7 @@ $data = $this->db->query("SELECT
 
  ?>
                                                 <tr>
+                                                    <td><?php echo $isi['kode_barang']; ?></td>
                                                     <td><?php echo $isi['nama']; ?></td>
                                                     <td><?php echo $isi['lokasi']; ?></td>
                                                     <td><?php echo $isi['stok']; ?></td>
