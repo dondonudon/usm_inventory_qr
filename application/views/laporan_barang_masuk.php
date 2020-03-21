@@ -38,7 +38,7 @@
                                 </div>
                             </div>
                         </div>
-                        <form action="<?php base_url(); ?>laporan_barang_masuk/report" method="post">
+                        <form target="_blank" action="<?php base_url(); ?>laporan_barang_masuk/report" method="post">
                             <input type="hidden" name="tanggal_a" id="tanggal_a">
                             <input type="hidden" name="tanggal_b" id="tanggal_b">
                             <button type="submit" class="btn btn-success">Print</button>

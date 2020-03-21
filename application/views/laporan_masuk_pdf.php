@@ -17,6 +17,9 @@ if (empty($tanggal_a) || empty($tanggal_b)) {
 ?>
 <html>
 <style>
+.body {
+  font-family: "Times New Roman", Times, serif;
+}
 .footer {
   position: fixed;
   left: 0;
@@ -28,7 +31,7 @@ if (empty($tanggal_a) || empty($tanggal_b)) {
 }
 </style>
 <link rel="stylesheet" href="<?php echo base_url() ?>assets/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css">
-<body>
+<body class="body">
 <center><h2>PAUD AN-NAHL PRESCHOOL - KAB. SEMARANG</h2>
 <h3>LAPORAN BARANG MASUK</h3></center>
 
