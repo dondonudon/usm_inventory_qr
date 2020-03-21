@@ -244,6 +244,7 @@
                         var lokasi = $('#lokasi').val();
                         var tanggal = $('#tanggal').val();
                         var nota = $('#nota').val();
+                        var ket = $('#ket').val();
                         var nostockopname = $('#nostockopname').val();
                         $.ajax({
                             type: "POST",
@@ -256,7 +257,8 @@
                                 harga: harga,
                                 lokasi: lokasi,
                                 tanggal: tanggal,
-                                nota:nota
+                                nota:nota,
+                                ket:ket
                             },
                             success: function(data) {
                                 $('[name="kode_barang"]').val("");

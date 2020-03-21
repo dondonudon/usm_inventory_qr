@@ -157,6 +157,7 @@ class Stock_opname extends CI_Controller
   $stok          = $this->input->post('stok');
   $harga         = $this->input->post('harga');
   $lokasi        = $this->input->post('lokasi');
+  $ket           = $this->input->post('ket');
   $tanggal       = $this->input->post('tanggal');
 //   $nota          = $this->input->post('nota');
   $nostockopname = $this->input->post('nostockopname');
@@ -166,11 +167,13 @@ class Stock_opname extends CI_Controller
   $q1   = $this->Tab_barang_model->get_by_id($kode_barang);
   $nama = $nostockopname . time();
   $isi  = "Kode Barang      : $q1->kode_barang
-        \n Nama Barang      : $q1->nama
-        \n Stok             : $stok
-        \n Harga            : $harga
-        \n Lokasi           : $lokasi
-        \n Tanggal Beli     : $tanggal";
+        \nNama Barang      : $q1->nama
+        \nMerk             : $q1->merk
+        \nNama Toko        : $ket
+        \nStok             : $stok
+        \nHarga            : $harga
+        \nLokasi           : $lokasi
+        \nTanggal Beli     : $tanggal";
   $image_name = $nama . '.png';
   qrcode($nama, $isi);
   //END QR CODE
