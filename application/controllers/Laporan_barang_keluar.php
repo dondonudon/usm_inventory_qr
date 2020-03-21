@@ -34,7 +34,7 @@ class Laporan_barang_keluar extends CI_Controller
    $no++;
    $row   = array();
    $row[] = $no;
-   $row[] = $customers->nostokkasir;
+   $row[] = $customers->ket;
    //$row[]  = $customers->nama;
    // $row[]  = number_format($customers->jumlah);
    $row[]  = $customers->tanggal;

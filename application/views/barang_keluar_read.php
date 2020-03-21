@@ -11,9 +11,8 @@ $data = $this->db->query("SELECT
                                 t.datetime,
                                 td.qrcode,
                                 td.kode_barang,
-                                tb.nama
-
-
+                                tb.nama,
+                                tb.gambar
                             FROM
                                 master_stok_kasir t
                             INNER JOIN master_stok_kasir_detail td ON
@@ -40,9 +39,6 @@ $data = $this->db->query("SELECT
                                 <table width="100%">
                                     <tr>
                                         <?php $row = $data->row();?>
-                                        <td>No Transaksi</td>
-                                        <td>:</td>
-                                        <td><?php echo $row->nostokkasir; ?></td>
                                         <td>Tgl Transaksi</td>
                                         <td>:</td>
                                         <td><?php echo $row->tanggal; ?></td>
@@ -63,11 +59,11 @@ $data = $this->db->query("SELECT
                                     <table class='table table-bordered'>
                                         <thead>
                                             <tr>
+                                                <td>Kode Barang</td>
                                                 <td>Nama Barang</td>
                                                 <td>QTY</td>
                                                 <td>Alasan</td>
-                                                <!-- <td>Harga</td>
-                                                <td>Subtotal</td> -->
+                                                <td>Gambar</td>
                                                 <td>QR</td>
                                             </tr>
                                         </thead>
@@ -77,9 +73,11 @@ $data = $this->db->query("SELECT
 
  ?>
                                                 <tr>
+                                                    <td><?php echo $isi['kode_barang']; ?></td>
                                                     <td><?php echo $isi['nama']; ?></td>
                                                     <td><?php echo $isi['stok']; ?></td>
                                                     <td><?php echo $isi['alasan']; ?></td>
+                                                    <td><img src="<?php echo base_url() . 'upload/image/' . $isi['gambar']; ?>" alt="<?php echo $isi['nama']; ?>" width="150"></td>
                                                     <td><a class="btn btn-sm btn-primary" href="<?php echo base_url() . '/upload/qr/' . $isi['qrcode']; ?>" title="Edit" target="_blank">QR</a></td>
                                                     <!-- <td> <img src="<?php echo base_url() . '/upload/qr/' . $isi['qrcode']; ?>" height="150" width="150"> </td> -->
                                                 </tr>

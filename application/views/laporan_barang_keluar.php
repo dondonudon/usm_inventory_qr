@@ -47,7 +47,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nota</th>
+                                    <th>Nama Toko</th>
                                     <!-- <th>Kasir</th> -->
                                     <!-- <th>Jumlah</th> -->
                                     <th>Tanggal</th>

@@ -12,7 +12,7 @@ class Laporan_barang_keluar_model extends CI_Model
 
     //var $table = 'customers';
     public $column_order  = array('master_stok_kasir.datetime'); //set column field database for datatable orderable
-    public $column_search = array('nostokkasir', 'tanggal'); //set column field database for datatable searchable
+    public $column_search = array('ket', 'tanggal'); //set column field database for datatable searchable
     //var $order = array('id' => 'asc'); // default order
     //public $order = 'DESC';
 
