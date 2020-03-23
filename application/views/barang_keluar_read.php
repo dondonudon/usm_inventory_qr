@@ -39,7 +39,7 @@ $data = $this->db->query("SELECT
                                 <table width="100%">
                                     <tr>
                                         <?php $row = $data->row();?>
-                                        <td>Tgl Transaksi</td>
+                                        <td>Tgl Hilang/Rusak</td>
                                         <td>:</td>
                                         <td><?php echo $row->tanggal; ?></td>
                                     </tr>
