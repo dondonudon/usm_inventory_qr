@@ -173,11 +173,11 @@ class Master_stok_kasir extends CI_Controller
   //QR CODE
   $q1   = $this->Tab_barang_model->get_by_id($kode_barang);
   $nama = $nostokkasir . time();
-  $isi  = "Kode Barang  : $q1->kode_barang
-        \n Nama Barang  : $q1->nama
-        \n Stok         : $stok
-        \n Alasan       : $alasan
-        \n Tanggal      : $tanggal";
+  $isi  = "Kode Barang          : $q1->kode_barang
+        \n Nama Barang          : $q1->nama
+        \n Stok                 : $stok
+        \n Alasan               : $alasan
+        \n Tanggal Hilang/Rusak : $tanggal";
   $image_name = $nama . '.png';
   qrcode($nama, $isi);
   //END QR CODE
@@ -212,8 +212,8 @@ class Master_stok_kasir extends CI_Controller
 
   //QR CODE
   $nama = $notrans . time();
-  $isi  = "No Transaksi     : $notrans
-        \n Tanggal          : $tanggal";
+  $isi  = "Nama Toko            : $ket
+        \n Tanggal Hilang/Rusak : $tanggal";
   $image_name = $nama . '.png';
   qrcode($nama, $isi);
   //END QR CODE
