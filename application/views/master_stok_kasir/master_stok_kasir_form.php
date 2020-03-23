@@ -4,7 +4,7 @@
     <section class="content">
         <div class="box box-warning box-solid">
             <div class="box-header with-border">
-                <h3 class="box-title">INPUT DATA BARANG KELUAR</h3>
+                <h3 class="box-title">INPUT DATA BARANG HILANG/RUSAK</h3>
                 <div class="pull-right"><a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#ModalaAdd"><span class="fa fa-plus"></span> Tambah Barang</a></div>
             </div>
             <table class='table table-bordered table-striped'>

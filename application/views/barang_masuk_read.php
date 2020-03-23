@@ -35,7 +35,7 @@ $data = $this->db->query("SELECT
                     <div class="box box-warning box-solid">
 
                         <div class="box-header">
-                            <h3 class="box-title">LAPORAN TRANSAKSI</h3>
+                            <h3 class="box-title">LAPORAN BARANG MASUK</h3>
                         </div>
 
                         <div class="box-body">
