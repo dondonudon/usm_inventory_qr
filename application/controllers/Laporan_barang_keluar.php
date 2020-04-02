@@ -37,9 +37,9 @@ class Laporan_barang_keluar extends CI_Controller
    $row[] = $customers->ket;
    //$row[]  = $customers->nama;
    // $row[]  = number_format($customers->jumlah);
-   $row[]  = $customers->tanggal;
-   $row[]  = '<a class="btn btn-sm btn-primary" href="' . base_url('upload/qr/' . $customers->qrcode) . '" title="Edit" target="_blank">QR</a>';
-   $row[]  = '<a class="btn btn-sm btn-primary" href="' . base_url('laporan_barang_keluar/read/' . $customers->nostokkasir) . '" title="Edit" target="_blank">Detail</a>';
+   $row[] = date_format(date_create($customers->tanggal), 'd/m/Y');
+   $row[] = '<a class="btn btn-sm btn-primary" href="' . base_url('upload/qr/' . $customers->qrcode) . '" title="Edit" target="_blank">QR</a>';
+   $row[] = '<a class="btn btn-sm btn-primary" href="' . base_url('laporan_barang_keluar/read/' . $customers->nostokkasir) . '" title="Edit" target="_blank">Detail</a>';
 //    $row[]  = '<a class="btn btn-sm btn-primary" href="' . base_url('laporan_barang_keluar/print/' . $customers->nostokkasir) . '" title="Edit" target="_blank">Print</a>';
    $data[] = $row;
 
@@ -102,9 +102,8 @@ class Laporan_barang_keluar extends CI_Controller
   $pdf->Output();
  }
 
- public function print($nostokkasir)
- {
-    $data = $this->db->query("SELECT
+ function print($nostokkasir) {
+  $data = $this->db->query("SELECT
                                 t.id_s_kasir,
                                 t.nostokkasir,
                                 t.ket,
@@ -125,7 +124,7 @@ class Laporan_barang_keluar extends CI_Controller
                             WHERE
                                 t.nostokkasir = '$nostokkasir'");
   $row = $data->row();
-  $pdf       = new FPDF('l', 'mm', 'A5');
+  $pdf = new FPDF('l', 'mm', 'A5');
   // membuat halaman baru
   $pdf->AddPage();
   // setting jenis font yang akan digunakan
@@ -134,7 +133,7 @@ class Laporan_barang_keluar extends CI_Controller
   $pdf->Cell(190, 7, 'PAUD AN-NAHL PRESCHOOL - KAB. SEMARANG', 0, 1, 'C');
   $pdf->SetFont('Arial', 'B', 12);
   $pdf->Cell(190, 7, 'LAPORAN TRANSAKSI BARANG KELUAR', 0, 1, 'C');
-  $pdf->Cell(190, 6, $row->nostokkasir, 0, 0,'R');
+  $pdf->Cell(190, 6, $row->nostokkasir, 0, 0, 'R');
   // Memberikan space kebawah agar tidak terlalu rapat
   $pdf->Cell(10, 7, '', 0, 1);
   $pdf->SetFont('Arial', 'B', 10);
@@ -152,26 +151,27 @@ class Laporan_barang_keluar extends CI_Controller
   $pdf->Cell(40, 6, 'Alasan', 1, 1);
   $nourut = 1;
   foreach ($data->result_array() as $isi) {
-    $pdf->Cell(8, 6, $nourut, 1, 0);
-    $pdf->Cell(60, 6, $isi['nama'], 1, 0);
-    $pdf->Cell(40, 6, $isi['stok'], 1, 0);
-    $pdf->Cell(40, 6, $isi['alasan'], 1, 0);
-    $nourut++;
+   $pdf->Cell(8, 6, $nourut, 1, 0);
+   $pdf->Cell(60, 6, $isi['nama'], 1, 0);
+   $pdf->Cell(40, 6, $isi['stok'], 1, 0);
+   $pdf->Cell(40, 6, $isi['alasan'], 1, 0);
+   $nourut++;
   }
   $pdf->Output();
  }
 
- public function report(){
-    $tanggal_a = $_POST['tanggal_a'];
-    $tanggal_b = $_POST['tanggal_b'];
-    $data = array(
-        'tanggal_a' =>$tanggal_a,
-        'tanggal_b' =>$tanggal_b,
-    );
-    $this->pdfgenerator->setPaper('A4', 'landscape');
-    $this->pdfgenerator->filename = "laporan-barang-keluar.pdf";
-    $this->pdfgenerator->load_view('laporan_keluar_pdf', $data);
-}
+ public function report()
+ {
+  $tanggal_a = $_POST['tanggal_a'];
+  $tanggal_b = $_POST['tanggal_b'];
+  $data      = array(
+   'tanggal_a' => $tanggal_a,
+   'tanggal_b' => $tanggal_b,
+  );
+  $this->pdfgenerator->setPaper('A4', 'landscape');
+  $this->pdfgenerator->filename = "laporan-barang-keluar.pdf";
+  $this->pdfgenerator->load_view('laporan_keluar_pdf', $data);
+ }
 
  public function excel()
  {

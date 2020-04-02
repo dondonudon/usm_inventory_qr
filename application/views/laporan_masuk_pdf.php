@@ -61,7 +61,7 @@ foreach ($query->result_array() as $data) {
             <td> <img src="<?php echo base_url() . 'upload/image/' . $data['gambar']; ?>" alt="<?php echo $data['nama']; ?>" width="100"></td>
             <td> <?php echo $data['lokasi']; ?></td>
             <td> <?php echo $data['sumber']; ?></td>
-            <td> <?php echo $data['tanggal']; ?></td>
+            <td> <?php echo date_format(date_create($data['tanggal']), 'd/m/Y'); ?></td>
             <td> <?php echo $data['ket']; ?></td>
             <td> <?php echo $data['qty']; ?></td>
             <td> <?php echo rupiah($data['harga']); ?></td>

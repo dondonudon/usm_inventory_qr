@@ -45,7 +45,7 @@ $data = $this->db->query("SELECT
                                         <?php $row = $data->row();?>
                                         <td>Tgl Pembelian</td>
                                         <td>:</td>
-                                        <td><?php echo $row->tanggal; ?></td>
+                                        <td><?php echo date_format(date_create($row->tanggal), 'd/m/Y'); ?></td>
                                         <td>Sumber Dana</td>
                                         <td>:</td>
                                         <td><?php echo $row->sumber; ?></td>
