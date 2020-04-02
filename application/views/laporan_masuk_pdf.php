@@ -1,18 +1,17 @@
 <?php
 
 if (empty($tanggal_a) || empty($tanggal_b)) {
-    $query = $this->db->query("SELECT *, tab_barang.nama as nama_barang, stock_opname_detail.stok as qty
-                                FROM stock_opname 
+ $query = $this->db->query("SELECT *, tab_barang.nama as nama_barang, stock_opname_detail.stok as qty
+                                FROM stock_opname
                                 INNER JOIN stock_opname_detail ON stock_opname.nostockopname = stock_opname_detail.nostockopname
                                 INNER JOIN tab_barang ON tab_barang.kode_barang = stock_opname_detail.kode_barang");
 } else {
-    $query = $this->db->query("SELECT *, tab_barang.nama as nama_barang, stock_opname_detail.stok as qty 
-                                FROM stock_opname 
-                                INNER JOIN stock_opname_detail ON stock_opname.nostockopname = stock_opname_detail.nostockopname 
+ $query = $this->db->query("SELECT *, tab_barang.nama as nama_barang, stock_opname_detail.stok as qty
+                                FROM stock_opname
+                                INNER JOIN stock_opname_detail ON stock_opname.nostockopname = stock_opname_detail.nostockopname
                                 INNER JOIN tab_barang ON tab_barang.kode_barang = stock_opname_detail.kode_barang
                                 WHERE stock_opname.tanggal BETWEEN '$tanggal_a' AND '$tanggal_b' ");
 }
-
 
 ?>
 <html>
@@ -52,9 +51,9 @@ if (empty($tanggal_a) || empty($tanggal_b)) {
             <td>Subtotal</td>
         </tr>
         <?php
-        $no = 1;
-        foreach ($query->result_array() as $data) {
-        ?>
+$no = 1;
+foreach ($query->result_array() as $data) {
+ ?>
         <tr>
             <td> <?php echo $no; ?></td>
             <td> <?php echo $data['nama']; ?></td>
@@ -63,15 +62,19 @@ if (empty($tanggal_a) || empty($tanggal_b)) {
             <td> <?php echo $data['lokasi']; ?></td>
             <td> <?php echo $data['sumber']; ?></td>
             <td> <?php echo $data['tanggal']; ?></td>
-            <td> <?php echo $data['ket']; ?></td>   
+            <td> <?php echo $data['ket']; ?></td>
             <td> <?php echo $data['qty']; ?></td>
-            <td> <?php echo $data['harga']; ?></td>
-            <td> <?php echo $data['jumlah']; ?></td>
+            <td> <?php echo rupiah($data['harga']); ?></td>
+            <td> <?php echo rupiah($data['jumlah']); ?></td>
         </tr>
-        <?php $no++ ?>
-        <?php } ?>
+        <?php $no++?>
+        <?php }?>
 </table>
 </div>
+</div><br>
+<div class="pull-right">Ungaran Barat, <?php echo date('d F Y'); ?><br>
+Kepala Sekolah <br><br><br><br>
+<strong>Yulia Risanti, S.Psi </strong><br>
 </div>
 <div class="footer">
   <p>Dicetak tanggal <?php echo date('Y-m-d H:i:s'); ?></p>
