@@ -162,13 +162,13 @@ class Master_stok_kasir extends CI_Controller
 
  public function simpan_barang()
  {
-  $kode_barang = $this->input->post('kode_barang');
-  $stok        = $this->input->post('stok');
-  $alasan      = $this->input->post('alasan');
-  $tanggal     = $this->input->post('tanggal');
-//   $nota        = $this->input->post('nota');
-  $nostokkasir = $this->input->post('nostokkasir');
-  $datetime    = date('Y-m-d H:i:s');
+  $kode_barang   = $this->input->post('kode_barang');
+  $stok          = $this->input->post('stok');
+  $alasan        = $this->input->post('alasan');
+  $tanggal       = $this->input->post('tanggal');
+  $tanggalkeluar = date_format(new DateTime($tanggal), 'd/m/Y');
+  $nostokkasir   = $this->input->post('nostokkasir');
+  $datetime      = date('Y-m-d H:i:s');
 
   //QR CODE
   $q1   = $this->Tab_barang_model->get_by_id($kode_barang);
@@ -177,7 +177,7 @@ class Master_stok_kasir extends CI_Controller
         \n Nama Barang          : $q1->nama
         \n Stok                 : $stok
         \n Alasan               : $alasan
-        \n Tanggal Hilang/Rusak : $tanggal";
+        \n Tanggal Hilang/Rusak : $tanggalkeluar";
   $image_name = $nama . '.png';
   qrcode($nama, $isi);
   //END QR CODE
@@ -203,17 +203,17 @@ class Master_stok_kasir extends CI_Controller
 
  public function insert_trans()
  {
-  $id_user  = $this->input->post('id_user');
-  $notrans  = $this->input->post('nostokkasir');
-  $ket      = $this->input->post('ket');
-  $tanggal  = $this->input->post('tanggal');
-//   $nota     = $this->input->post('nota');
-  $datetime = date('Y-m-d H:i:s');
+  $id_user       = $this->input->post('id_user');
+  $notrans       = $this->input->post('nostokkasir');
+  $ket           = $this->input->post('ket');
+  $tanggal       = $this->input->post('tanggal');
+  $tanggalkeluar = date_format(new DateTime($tanggal), 'd/m/Y');
+  $datetime      = date('Y-m-d H:i:s');
 
   //QR CODE
   $nama = $notrans . time();
   $isi  = "Nama Toko            : $ket
-        \n Tanggal Hilang/Rusak : $tanggal";
+        \n Tanggal Hilang/Rusak : $tanggalkeluar";
   $image_name = $nama . '.png';
   qrcode($nama, $isi);
   //END QR CODE

@@ -159,7 +159,7 @@ class Stock_opname extends CI_Controller
   $lokasi        = $this->input->post('lokasi');
   $ket           = $this->input->post('ket');
   $tanggal       = $this->input->post('tanggal');
-//   $nota          = $this->input->post('nota');
+  $tanggalbeli   = date_format(new DateTime($tanggal), 'd/m/Y');
   $nostockopname = $this->input->post('nostockopname');
   $datetime      = date('Y-m-d H:i:s');
 
@@ -173,7 +173,7 @@ class Stock_opname extends CI_Controller
         \nStok             : $stok
         \nHarga            : $harga
         \nLokasi           : $lokasi
-        \nTanggal Beli     : $tanggal";
+        \nTanggal Beli     : $tanggalbeli";
   $image_name = $nama . '.png';
   qrcode($nama, $isi);
   //END QR CODE
@@ -201,19 +201,19 @@ class Stock_opname extends CI_Controller
 
  public function insert_trans()
  {
-  $id_user  = $this->input->post('id_user');
-  $notrans  = $this->input->post('nostockopname');
-  $ket      = $this->input->post('ket');
-//   $nota     = $this->input->post('nota');
-  $tanggal  = $this->input->post('tanggal');
-  $sumber   = $this->input->post('sumber');
-  $datetime = date('Y-m-d H:i:s');
+  $id_user     = $this->input->post('id_user');
+  $notrans     = $this->input->post('nostockopname');
+  $ket         = $this->input->post('ket');
+  $tanggal     = $this->input->post('tanggal');
+  $tanggalbeli = date_format(new DateTime($tanggal), 'd/m/Y');
+  $sumber      = $this->input->post('sumber');
+  $datetime    = date('Y-m-d H:i:s');
 
   //QR CODE
   $nama = $notrans . time();
   $isi  = "Nama Toko        : $ket
         \n Sumber dana      : $sumber
-        \n Tanggal beli     : $tanggal";
+        \n Tanggal beli     : $tanggalbeli";
   $image_name = $nama . '.png';
   qrcode($nama, $isi);
   //END QR CODE
