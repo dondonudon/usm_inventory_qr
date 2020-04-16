@@ -33,13 +33,17 @@ if (empty($tanggal_a) || empty($tanggal_b)) {
 <body class="body">
 <table width="100%">
   <tr>
-    <td align="center" width="200px" rowspan="2"><img src="<?php echo base_url(); ?>assets/image/logo.png" width="150"></td>
-    <td align="center"><h2>PAUD AN-NAHL PRESCHOOL - KAB. SEMARANG</h2></td>
+    <td align="center" width="200px" rowspan="5"><img src="<?php echo base_url(); ?>assets/image/logo.png" width="150"></td>
+    <td align="center">KELOMPOK BERMAIN, TAMAN KANAK-KANAK, TPA, DAN LAYANAN KHUSUS</td>
+    <td align="center" width="200px" rowspan="5"><img src="<?php echo base_url(); ?>assets/image/logo2.png" width="150"></td>
   </tr>
-    <td align="center"><h3>LAPORAN BARANG MASUK</h3></td>
-  </tr>
+  <tr><td align="center"><font color="blue"> <strong style="font-size: 25px;"> PAUD AN-NAHL PRESCHOOL - KAB. SEMARANG</font> </td></tr>
+  <tr><td align="center">Jl. Jalak No. 42 RT.12 RW.01 Kel. Ungaran, Kec. Ungaran Barat, Kab. Semarang</td></tr>
+  <tr><td align="center">Telp. / Fax. (024) 76910840, email : annahlpreschoolung@gmail.com<</strong>/td></tr>
+  <tr><td align="center">mobile : 0811-2888-700</td></tr>
 </table>
-<br>
+<hr size="30">
+<center><h3>LAPORAN BARANG MASUK</h3></center>
 <div class="box-body">
     <div style="padding-bottom: 10px;">
     <table class='table table-bordered' width="100%" >
