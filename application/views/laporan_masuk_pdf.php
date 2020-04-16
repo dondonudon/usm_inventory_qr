@@ -31,9 +31,15 @@ if (empty($tanggal_a) || empty($tanggal_b)) {
 </style>
 <link rel="stylesheet" href="<?php echo base_url() ?>assets/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css">
 <body class="body">
-<center><h2>PAUD AN-NAHL PRESCHOOL - KAB. SEMARANG</h2>
-<h3>LAPORAN BARANG MASUK</h3></center>
-
+<table width="100%">
+  <tr>
+    <td align="center" width="200px" rowspan="2"><img src="<?php echo base_url(); ?>assets/image/logo.png" width="150"></td>
+    <td align="center"><h2>PAUD AN-NAHL PRESCHOOL - KAB. SEMARANG</h2></td>
+  </tr>
+    <td align="center"><h3>LAPORAN BARANG MASUK</h3></td>
+  </tr>
+</table>
+<br>
 <div class="box-body">
     <div style="padding-bottom: 10px;">
     <table class='table table-bordered' width="100%" >
