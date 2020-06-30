@@ -24,6 +24,7 @@ class Tab_barang_model extends CI_Model
     //add this line for join
     $this->datatables->join('master_group', 'tab_barang.kode_group = master_group.kode_group');
     $this->datatables->join('stock_opname_detail', 'stock_opname_detail.kode_barang = tab_barang.kode_barang', 'LEFT');
+    $this->datatables->where('tab_barang.del =', 0);
     $this->datatables->group_by('tab_barang.kode_barang');
     $this->datatables->add_column('action', anchor(site_url('tab_barang/read/$1'), '<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm')) . "
             " . anchor(site_url('tab_barang/update/$1'), '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm')) . "
@@ -103,7 +104,8 @@ class Tab_barang_model extends CI_Model
   // delete data
   public function delete($id)
   {
-    $this->db->where($this->id, $id);
-    $this->db->delete($this->table);
+    $this->db->query("UPDATE tab_barang SET del = 1 WHERE $this->id = '$id'");
+    // $this->db->where($this->id, $id);
+    // $this->db->delete($this->table);
   }
 }
