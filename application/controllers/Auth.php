@@ -22,7 +22,7 @@ class Auth extends CI_Controller
         $test     = password_verify($password, $hashPass);
         // query chek users
         $this->db->where('full_name', $full_name);
-        $this->db->where('is_aktif', 'y');
+        $this->db->where('is_aktif', '1');
         //$this->db->where('password',  $test);
         $users       = $this->db->get('tbl_user');
         if ($users->num_rows() > 0) {
