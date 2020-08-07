@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5deb2
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Jun 24, 2020 at 02:30 PM
--- Server version: 8.0.20-0ubuntu0.20.04.1
--- PHP Version: 7.4.3
+-- Host: localhost
+-- Generation Time: Aug 07, 2020 at 08:45 AM
+-- Server version: 8.0.21
+-- PHP Version: 7.3.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -16,7 +15,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `usm_inventory_qr`
@@ -31,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `counter` (
   `id` varchar(2) NOT NULL COMMENT 'A=notrans, B=stock_opname, C=master_stok_kasir, D=retur_kasir',
   `counter` int NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `counter`
@@ -39,8 +38,8 @@ CREATE TABLE `counter` (
 
 INSERT INTO `counter` (`id`, `counter`) VALUES
 ('A', 0),
-('B', 26),
-('C', 8),
+('B', 36),
+('C', 14),
 ('D', 0);
 
 -- --------------------------------------------------------
@@ -59,6 +58,23 @@ CREATE TABLE `log` (
   `datetime` datetime NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `log`
+--
+
+INSERT INTO `log` (`id_log`, `ket`, `kode_m_kasir`, `kode_barang`, `qty`, `tipe`, `datetime`) VALUES
+(52, '8B2020040027', NULL, 8, 1, 'A', '2020-04-16 15:00:07'),
+(53, '8B2020040028', NULL, 9, 2, 'A', '2020-04-19 09:57:00'),
+(54, '8C2020060009', NULL, 8, 1, 'B', '2020-06-16 12:38:39'),
+(55, '8B2020080029', NULL, 11, 1, 'A', '2020-08-02 22:11:58'),
+(56, '8B2020080030', NULL, 12, 1, 'A', '2020-08-02 22:12:47'),
+(57, '8B2020080031', NULL, 14, 4, 'A', '2020-08-02 22:23:46'),
+(58, '8B2020080032', NULL, 17, 10, 'A', '2020-08-02 22:27:54'),
+(59, '8B2020080033', NULL, 15, 2, 'A', '2020-08-02 22:29:17'),
+(60, '8B2020080034', NULL, 18, 3, 'A', '2020-08-02 22:40:48'),
+(61, '8B2020080035', NULL, 16, 2, 'A', '2020-08-02 22:42:44'),
+(62, '8B2020080036', NULL, 19, 2, 'A', '2020-08-02 22:47:28');
+
 -- --------------------------------------------------------
 
 --
@@ -71,14 +87,16 @@ CREATE TABLE `master_group` (
   `gambar` varchar(255) DEFAULT NULL,
   `keterangan` varchar(255) DEFAULT NULL,
   `datetime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `master_group`
 --
 
 INSERT INTO `master_group` (`kode_group`, `nama_group`, `gambar`, `keterangan`, `datetime`) VALUES
-(3, 'group1', 'g_1584706211.jpg', 'ket1', '2020-03-20 19:10:11');
+(4, 'APE', 'g_1587023779.jpg', 'Indoor dan Outdoor', '2020-04-16 14:56:19'),
+(5, 'Peralatan Dapur', 'g_1587264154.jpg', '-', '2020-04-19 09:42:34'),
+(6, 'Peralatan Kelas', 'g_1596362395.jpg', '-', '2020-08-02 16:59:55');
 
 -- --------------------------------------------------------
 
@@ -97,7 +115,7 @@ CREATE TABLE `master_kasir` (
   `keterangan` varchar(255) DEFAULT NULL,
   `id_users` int NOT NULL,
   `datetime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
@@ -115,7 +133,16 @@ CREATE TABLE `master_stok_kasir` (
   `qrcode` varchar(100) NOT NULL,
   `tanggal` date DEFAULT NULL,
   `datetime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Dumping data for table `master_stok_kasir`
+--
+
+INSERT INTO `master_stok_kasir` (`id_s_kasir`, `nostokkasir`, `nota`, `ket`, `id_user`, `retur`, `qrcode`, `tanggal`, `datetime`) VALUES
+(10, '8C2020060009', NULL, 'Children Toys', 8, 0, '8C20200600091592285919.png', '2020-06-16', '2020-06-16 12:38:39'),
+(11, '8C2020080010', NULL, 'Children Toys', 8, 0, '8C20200800101596382420.png', '2020-08-02', '2020-08-02 22:33:40'),
+(18, '8C2020080014', NULL, 'asd', 8, 0, '8C20200800141596389087.png', '2020-08-03', '2020-08-03 00:24:47');
 
 -- --------------------------------------------------------
 
@@ -124,14 +151,22 @@ CREATE TABLE `master_stok_kasir` (
 --
 
 CREATE TABLE `master_stok_kasir_detail` (
-  `id_s_kasir` int NOT NULL,
   `nostokkasir` varchar(12) NOT NULL,
+  `id_s_kasir` int NOT NULL,
   `kode_barang` int DEFAULT NULL,
   `stok` int DEFAULT NULL,
   `alasan` varchar(15) NOT NULL,
   `qrcode` varchar(100) NOT NULL,
   `datetime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Dumping data for table `master_stok_kasir_detail`
+--
+
+INSERT INTO `master_stok_kasir_detail` (`nostokkasir`, `id_s_kasir`, `kode_barang`, `stok`, `alasan`, `qrcode`, `datetime`) VALUES
+('8C2020060009', 0, 8, 1, 'Rusak', '8C20200600091592285901.png', '2020-06-16 12:38:21'),
+('8C2020080010', 0, 9, 2, 'Rusak', '8C20200800101596382416.png', '2020-08-02 22:33:36');
 
 -- --------------------------------------------------------
 
@@ -150,7 +185,23 @@ CREATE TABLE `stock_opname` (
   `tanggal` date DEFAULT NULL,
   `sumber` varchar(50) NOT NULL,
   `datetime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Dumping data for table `stock_opname`
+--
+
+INSERT INTO `stock_opname` (`id_stock_opname`, `nostockopname`, `nota`, `ket`, `id_user`, `jumlah`, `qrcode`, `tanggal`, `sumber`, `datetime`) VALUES
+(27, '8B2020040027', NULL, 'Children Toys', 8, 465000, '8B20200400271587024007.png', '2019-09-22', 'Bantuan Dana APE 2019', '2020-04-16 15:00:07'),
+(28, '8B2020040028', NULL, 'ILC Paragon Semarang', 8, 498000, '8B20200400281587265019.png', '2019-09-06', 'Dana Bantuan APE 2019', '2020-04-19 09:56:59'),
+(29, '8B2020080029', NULL, 'Children Toys', 8, 465000, '8B20200800291596381118.png', '2019-12-09', 'Bantuan Dana APE 2019', '2020-08-02 22:11:58'),
+(30, '8B2020080030', NULL, 'Children Toys', 8, 435000, '8B20200800301596381167.png', '2019-09-13', 'Bantuan Dana APE 2019', '2020-08-02 22:12:47'),
+(31, '8B2020080031', NULL, 'Children Toys', 8, 658000, '8B20200800311596381826.png', '2009-09-13', 'Bantuan Dana APE 2019', '2020-08-02 22:23:46'),
+(32, '8B2020080032', NULL, 'Gramedia Semarang', 8, 590000, '8B20200800321596382074.png', '2019-09-10', 'Bantuan Dana APE 2019', '2020-08-02 22:27:54'),
+(33, '8B2020080033', NULL, 'Gramedia Semarang', 8, 900000, '8B20200800331596382157.png', '2019-09-10', 'Bantuan Dana APE 2019', '2020-08-02 22:29:17'),
+(34, '8B2020080034', NULL, 'ILC Semarang', 8, 297000, '8B20200800341596382848.png', '2019-09-06', 'Bantuan Dana APE 2019', '2020-08-02 22:40:48'),
+(35, '8B2020080035', NULL, 'ILC Semarang', 8, 658000, '8B20200800351596382964.png', '2019-09-06', 'Bantuan Dana APE 2019', '2020-08-02 22:42:44'),
+(36, '8B2020080036', NULL, 'ILC Semarang', 8, 658000, '8B20200800361596383248.png', '2019-09-06', 'Bantuan Dana APE 2019', '2020-08-02 22:47:28');
 
 -- --------------------------------------------------------
 
@@ -159,8 +210,8 @@ CREATE TABLE `stock_opname` (
 --
 
 CREATE TABLE `stock_opname_detail` (
-  `id_stock_opname` int NOT NULL,
   `nostockopname` varchar(12) NOT NULL,
+  `id_stock_opname` int NOT NULL,
   `kode_barang` int DEFAULT NULL,
   `stok` int DEFAULT NULL,
   `harga` int NOT NULL,
@@ -168,7 +219,23 @@ CREATE TABLE `stock_opname_detail` (
   `lokasi` varchar(20) NOT NULL,
   `qrcode` varchar(100) NOT NULL,
   `datetime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Dumping data for table `stock_opname_detail`
+--
+
+INSERT INTO `stock_opname_detail` (`nostockopname`, `id_stock_opname`, `kode_barang`, `stok`, `harga`, `jumlah`, `lokasi`, `qrcode`, `datetime`) VALUES
+('8B2020040027', 0, 8, 1, 465000, 465000, 'Playgroup B', '8B20200400271587023999.png', '2020-04-16 14:59:59'),
+('8B2020040028', 0, 9, 2, 249000, 498000, 'Kindergarten A', '8B20200400281587265016.png', '2020-04-19 09:56:56'),
+('8B2020080029', 0, 11, 1, 465000, 465000, 'Kindergarten A', '8B20200800291596381113.png', '2020-08-02 22:11:53'),
+('8B2020080030', 0, 12, 1, 435000, 435000, 'Kindergarten A', '8B20200800301596381164.png', '2020-08-02 22:12:44'),
+('8B2020080031', 0, 14, 4, 164500, 658000, 'Kindergarten A', '8B20200800311596381823.png', '2020-08-02 22:23:43'),
+('8B2020080032', 0, 17, 10, 59000, 590000, 'Playgroup A', '8B20200800321596382071.png', '2020-08-02 22:27:51'),
+('8B2020080033', 0, 15, 2, 450000, 900000, 'Kindergarten B', '8B20200800331596382155.png', '2020-08-02 22:29:15'),
+('8B2020080034', 0, 18, 3, 99000, 297000, 'Playgroup B', '8B20200800341596382845.png', '2020-08-02 22:40:45'),
+('8B2020080035', 0, 16, 2, 329000, 658000, 'Kindergarten A', '8B20200800351596382962.png', '2020-08-02 22:42:42'),
+('8B2020080036', 0, 19, 2, 329000, 658000, 'Kindergarten A', '8B20200800361596383245.png', '2020-08-02 22:47:25');
 
 -- --------------------------------------------------------
 
@@ -182,12 +249,52 @@ CREATE TABLE `tab_barang` (
   `kode_group` int DEFAULT NULL,
   `nama` varchar(30) DEFAULT NULL,
   `gambar` varchar(225) DEFAULT NULL,
-  `spesifikasi` varchar(100) NOT NULL,
-  `merk` varchar(20) NOT NULL,
+  `spesifikasi` varchar(20) NOT NULL,
+  `merk` varchar(50) NOT NULL,
   `stok` int DEFAULT '0',
-  `keterangan` varchar(100) DEFAULT NULL,
+  `keterangan` varchar(50) DEFAULT NULL,
+  `del` int NOT NULL DEFAULT '0',
   `datetime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Dumping data for table `tab_barang`
+--
+
+INSERT INTO `tab_barang` (`kode_barang`, `kode_manual`, `kode_group`, `nama`, `gambar`, `spesifikasi`, `merk`, `stok`, `keterangan`, `del`, `datetime`) VALUES
+(8, NULL, 4, 'Wooden Teaching Clock', 'b_1587264249.jpg', 'Kayu', 'ILC', 0, '-', 1, '2020-06-30 20:48:46'),
+(9, NULL, 4, 'Wooden Teaching Clock', 'b_1587264249.jpg', 'Kayu', 'ILC', 2, 'indoor', 0, '2020-08-02 17:19:09'),
+(11, NULL, 4, 'Balok Umum', 'b_1596362668.jpg', 'Kayu', 'Children Toys', 1, 'indoor', 0, '2020-08-02 22:11:58'),
+(12, NULL, 4, 'Balok Masjid', 'b_1596362831.jpg', 'Kayu', 'Children Toys', 1, 'indoor', 0, '2020-08-02 22:12:47'),
+(13, NULL, 4, 'Balok Kandang Warna', 'b_1596362921.jpg', 'Kayu', 'Children Toys', 0, 'indoor', 0, '2020-08-02 17:53:43'),
+(14, NULL, 4, 'Asesoris Balok Kandang Warna', 'b_1596363375.jpg', 'Kayu', 'Children Toys', 4, 'indoor', 0, '2020-08-02 22:23:46'),
+(15, NULL, 4, 'Pianika', 'b_1596363482.jpg', 'Plastik', 'Yamaha', 2, 'indoor', 0, '2020-08-02 22:29:17'),
+(16, NULL, 4, 'Wooden Shape Sorter', 'b_1596364014.jpg', 'Kayu', 'ILC', 2, 'indoor', 0, '2020-08-02 22:42:44'),
+(17, NULL, 4, 'Buku Cerita Anak', 'b_1596365254.jpg', 'Kertas', 'Pelangi Mizan', 10, 'indoor', 0, '2020-08-02 22:27:54'),
+(18, NULL, 4, 'Star Links', 'b_1596365482.jpg', 'Plastik', 'ILC', 3, 'indoor', 0, '2020-08-02 22:40:48'),
+(19, NULL, 4, 'Wooden Hammer Bench', 'b_1596365535.jpg', 'Kayu', 'ILC', 2, 'indoor', 0, '2020-08-02 22:47:28'),
+(20, NULL, 4, 'Cup Ckae Twin Dolls', 'b_1596366426.jpg', 'Plastik', 'ILC', 0, 'indoor', 0, '2020-08-02 18:07:06'),
+(21, NULL, 4, 'Wooden Stacking Rings', 'b_1596366512.jpg', 'Kayu', 'ILC', 0, 'indoor', 0, '2020-08-02 18:08:32'),
+(22, NULL, 4, 'Wooden Stacking Rings', 'b_1596366512.jpg', 'Kayu', 'ILC', 0, 'indoor', 1, '2020-08-02 22:46:08'),
+(23, NULL, 4, 'Sand and Water Table Generic', 'b_1596366618.jpg', 'Plastik', 'ToysKingdom', 0, 'outdoor', 0, '2020-08-02 18:10:18'),
+(24, NULL, 4, 'My Magnetic Pattern Board', 'b_1596366768.jpg', 'Kayu', 'ILC', 0, 'indoor', 0, '2020-08-02 18:12:48'),
+(25, NULL, 4, 'Magnetic Playcentre Red', 'b_1596366869.jpg', 'Plastik', 'ILC', 0, 'indoor', 0, '2020-08-02 18:14:29'),
+(26, NULL, 4, 'Wooden Bricks', 'b_1596366959.jpg', 'Kayu', 'ILC', 0, 'indoor', 0, '2020-08-02 18:15:59'),
+(27, NULL, 4, 'Wooden Dairy Set', 'b_1596371543.jpg', 'Kayu', 'ILC', 0, 'indoor', 0, '2020-08-02 19:32:23'),
+(28, NULL, 4, 'Cash Register', 'b_1596371611.jpg', 'Plastik', 'ILC', 0, 'indoor', 0, '2020-08-02 19:33:31'),
+(29, NULL, 4, 'Table Top Art Centre', 'b_1596371729.jpg', 'Plastik', 'ILC', 0, 'indoor', 0, '2020-08-02 19:35:29'),
+(30, NULL, 4, 'Magnifying Glass', 'b_1596372121.jpg', 'Plastik', 'ILC', 0, 'indoor', 0, '2020-08-02 19:42:01'),
+(31, NULL, 4, 'Brainbox-Flash cards ABC', 'b_1596372199.jpg', 'Kertas', 'ILC', 0, 'indoor', 0, '2020-08-02 19:43:19'),
+(32, NULL, 4, 'Brainbox-Flash Cards Picture', 'b_1596372278.jpg', 'Kertas', 'ILC', 0, 'indoor', 0, '2020-08-02 19:44:38'),
+(33, NULL, 4, 'Brainbox-Flash Cards People at', 'b_1596372336.jpg', 'Kertas', 'ILC', 0, 'indoor', 0, '2020-08-02 19:45:36'),
+(34, NULL, 4, 'Kid-Early Learning Puzzle  Ass', 'b_1596372510.jpg', 'Kayu', 'ILC', 0, 'indoor', 0, '2020-08-02 19:48:30'),
+(35, NULL, 4, 'Kid-Early Learning Puzzle  Num', 'b_1596372554.jpg', 'Kayu', 'ILC', 0, 'indoor', 0, '2020-08-02 19:49:14'),
+(36, NULL, 4, 'Steo 2-Studio Art Desk', 'b_1596372731.jpg', 'Plastik', 'ILC', 0, 'indoor', 0, '2020-08-02 19:52:11'),
+(37, NULL, 4, 'Toys Kiitchen With Light & Sou', 'b_1596372883.jpg', 'Plastik', 'ToysKingdom', 0, 'indoor', 0, '2020-08-02 19:54:43'),
+(38, NULL, 4, 'Little Giggles-Basic Baby Trai', 'b_1596372947.jpg', 'Plastik', 'ILC', 0, 'indoor', 0, '2020-08-02 19:55:47'),
+(39, NULL, 4, 'Toys Doctor Playset', 'b_1596373011.jpg', 'Plastik', 'ToysKingdom', 0, 'indoor', 0, '2020-08-02 19:56:51'),
+(40, NULL, 4, 'Labeille-Rocking Horse', 'b_1596373261.jpg', 'Plastik', 'ToysKingdom', 0, 'indoor', 0, '2020-08-02 20:01:01'),
+(41, NULL, 4, 'Smoby-Slide', 'b_1596373354.jpg', 'Plastik', 'ToysKingdom', 0, 'indoor', 0, '2020-08-02 20:02:34');
 
 -- --------------------------------------------------------
 
@@ -293,7 +400,7 @@ CREATE TABLE `tbl_user` (
   `password` varchar(255) NOT NULL,
   `images` text NOT NULL,
   `id_user_level` int NOT NULL,
-  `is_aktif` enum('y','n') NOT NULL
+  `is_aktif` int NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
@@ -301,9 +408,9 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`id_users`, `full_name`, `email`, `password`, `images`, `id_user_level`, `is_aktif`) VALUES
-(1, 'super', 'super@super.com', '$2y$10$pY0QMNqgoJA3KIJbXg.aGOCCE.escHQzGMvMB6E9pJnYOMlsSaxJW', 'atomix_user31.png', 1, 'y'),
-(106, 'kepsek', 'kepsek', '$2y$04$ScVg6soxrF/Lx6cJDovw/u1GG1rZLP4tkuL7XVUn8gftVWBIUfpeC', 'atomix_user31.png', 6, 'y'),
-(8, 'admin', 'admin@admin.com', '$2y$04$Wbyfv4xwihb..POfhxY5Y.jHOJqEFIG3dLfBYwAmnOACpH0EWCCdq', 'atomix_user31.png', 2, 'y');
+(1, 'super', 'super@super.com', '$2y$04$Wbyfv4xwihb..POfhxY5Y.jHOJqEFIG3dLfBYwAmnOACpH0EWCCdq', 'atomix_user31.png', 1, 1),
+(106, 'kepsek', 'kepsek', '$2y$04$Wbyfv4xwihb..POfhxY5Y.jHOJqEFIG3dLfBYwAmnOACpH0EWCCdq', 'atomix_user31.png', 6, 1),
+(8, 'admin', 'admin@admin.com', '$2y$04$Wbyfv4xwihb..POfhxY5Y.jHOJqEFIG3dLfBYwAmnOACpH0EWCCdq', 'atomix_user31.png', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -339,7 +446,14 @@ CREATE TABLE `temp_master_stok_kasir` (
   `alasan` varchar(15) NOT NULL,
   `qrcode` varchar(100) NOT NULL,
   `datetime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Dumping data for table `temp_master_stok_kasir`
+--
+
+INSERT INTO `temp_master_stok_kasir` (`id_s_kasir`, `nostokkasir`, `kode_barang`, `stok`, `alasan`, `qrcode`, `datetime`) VALUES
+(692, '8C2020080010', 11, 1, 'Rusak', '8C20200800101596388645.png', '2020-08-03 00:17:25');
 
 -- --------------------------------------------------------
 
@@ -357,7 +471,7 @@ CREATE TABLE `temp_stock_opname` (
   `lokasi` varchar(20) NOT NULL,
   `qrcode` varchar(100) NOT NULL,
   `datetime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Indexes for dumped tables
@@ -398,7 +512,7 @@ ALTER TABLE `master_stok_kasir`
 -- Indexes for table `master_stok_kasir_detail`
 --
 ALTER TABLE `master_stok_kasir_detail`
-  ADD PRIMARY KEY (`id_s_kasir`) USING BTREE;
+  ADD PRIMARY KEY (`nostokkasir`);
 
 --
 -- Indexes for table `stock_opname`
@@ -410,7 +524,7 @@ ALTER TABLE `stock_opname`
 -- Indexes for table `stock_opname_detail`
 --
 ALTER TABLE `stock_opname_detail`
-  ADD PRIMARY KEY (`id_stock_opname`) USING BTREE;
+  ADD PRIMARY KEY (`nostockopname`);
 
 --
 -- Indexes for table `tab_barang`
@@ -469,13 +583,13 @@ ALTER TABLE `temp_stock_opname`
 -- AUTO_INCREMENT for table `log`
 --
 ALTER TABLE `log`
-  MODIFY `id_log` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id_log` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `master_group`
 --
 ALTER TABLE `master_group`
-  MODIFY `kode_group` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `kode_group` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `master_kasir`
@@ -487,31 +601,19 @@ ALTER TABLE `master_kasir`
 -- AUTO_INCREMENT for table `master_stok_kasir`
 --
 ALTER TABLE `master_stok_kasir`
-  MODIFY `id_s_kasir` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `master_stok_kasir_detail`
---
-ALTER TABLE `master_stok_kasir_detail`
-  MODIFY `id_s_kasir` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_s_kasir` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `stock_opname`
 --
 ALTER TABLE `stock_opname`
-  MODIFY `id_stock_opname` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
-
---
--- AUTO_INCREMENT for table `stock_opname_detail`
---
-ALTER TABLE `stock_opname_detail`
-  MODIFY `id_stock_opname` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id_stock_opname` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `tab_barang`
 --
 ALTER TABLE `tab_barang`
-  MODIFY `kode_barang` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `kode_barang` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `tbl_hak_akses`
@@ -547,13 +649,13 @@ ALTER TABLE `tbl_user_level`
 -- AUTO_INCREMENT for table `temp_master_stok_kasir`
 --
 ALTER TABLE `temp_master_stok_kasir`
-  MODIFY `id_s_kasir` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=683;
+  MODIFY `id_s_kasir` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=693;
 
 --
 -- AUTO_INCREMENT for table `temp_stock_opname`
 --
 ALTER TABLE `temp_stock_opname`
-  MODIFY `id_stock_opname` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=544;
+  MODIFY `id_stock_opname` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=554;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
