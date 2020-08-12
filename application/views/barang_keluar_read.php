@@ -12,15 +12,19 @@ $data = $this->db->query("SELECT
                                 td.qrcode,
                                 td.kode_barang,
                                 tb.nama,
-                                tb.gambar
+                                tb.gambar,
+                                s.datetime as tanggal_beli
                             FROM
                                 master_stok_kasir t
                             INNER JOIN master_stok_kasir_detail td ON
                                 t.nostokkasir = td.nostokkasir
-                            INNER JOIN tab_barang tb on
+                            INNER JOIN tab_barang tb ON
                                 td.kode_barang = tb.kode_barang
+                            INNER JOIN stock_opname_detail s ON 
+                                s.kode_barang =  td.kode_barang
                             WHERE
-                                t.nostokkasir = '$notrans'");
+                                t.nostokkasir = '$notrans'
+                                AND s.datetime  = (SELECT datetime FROM stock_opname_detail WHERE kode_barang = td.kode_barang ORDER BY datetime DESC LIMIT 1)");
 
 ?>
 <font size="4">
@@ -61,6 +65,7 @@ $data = $this->db->query("SELECT
                                             <tr>
                                                 <td>Kode Barang</td>
                                                 <td>Nama Barang</td>
+                                                <td>Tanggal Beli</td>
                                                 <td>QTY</td>
                                                 <td>Alasan</td>
                                                 <td>Gambar</td>
@@ -75,6 +80,7 @@ $data = $this->db->query("SELECT
                                                 <tr>
                                                     <td><?php echo $isi['kode_barang']; ?></td>
                                                     <td><?php echo $isi['nama']; ?></td>
+                                                    <td><?php echo date_format(date_create($isi['tanggal_beli']), 'd/m/Y'); ?></td>
                                                     <td><?php echo $isi['stok']; ?></td>
                                                     <td><?php echo $isi['alasan']; ?></td>
                                                     <td><img src="<?php echo base_url() . 'upload/image/' . $isi['gambar']; ?>" alt="<?php echo $isi['nama']; ?>" width="150"></td>
