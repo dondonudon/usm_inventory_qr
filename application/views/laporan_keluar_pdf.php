@@ -33,13 +33,13 @@ if (empty($tanggal_a) || empty($tanggal_b)) {
 <body class="body">
 <table width="100%">
   <tr>
-    <td align="center" width="200px" rowspan="5"><img src="<?php echo base_url(); ?>assets/image/logo.png" width="150"></td>
-    <td align="center">KELOMPOK BERMAIN, TAMAN KANAK-KANAK, TPA, DAN LAYANAN KHUSUS</td>
-    <td align="center" width="200px" rowspan="5"><img src="<?php echo base_url(); ?>assets/image/logo2.png" width="150"></td>
+    <td align="center" width="150px" rowspan="5"><img src="<?php echo base_url(); ?>assets/image/logo.png" width="100"></td>
+    <td align="center"><font color="black"> <strong style="font-size: 18px;"> KELOMPOK BERMAIN, TAMAN KANAK-KANAK, TPA, DAN LAYANAN KHUSUS</font> </td>
+    <td align="center" width="150px" rowspan="5"><img src="<?php echo base_url(); ?>assets/image/logo2.png" width="100"></td>
   </tr>
-  <tr><td align="center"><font color="blue"> <strong style="font-size: 25px;"> PAUD AN-NAHL PRESCHOOL - KAB. SEMARANG</font> </td></tr>
+  <tr><td align="center"><font color="blue"> <strong style="font-size: 30px;"> PAUD AN-NAHL PRESCHOOL - KAB. SEMARANG</font> </td></tr>
   <tr><td align="center">Jl. Jalak No. 42 RT.12 RW.01 Kel. Ungaran, Kec. Ungaran Barat, Kab. Semarang</td></tr>
-  <tr><td align="center">Telp. / Fax. (024) 76910840, email : annahlpreschoolung@gmail.com<</strong>/td></tr>
+  <tr><td align="center">Telp. / Fax. (024) 76910840, email : annahlpreschoolung@gmail.com<</strong></td></tr>
   <tr><td align="center">mobile : 0811-2888-700</td></tr>
 </table>
 <hr size="30">

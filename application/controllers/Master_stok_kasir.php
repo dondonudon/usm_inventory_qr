@@ -37,16 +37,16 @@ class Master_stok_kasir extends CI_Controller
  public function index()
  {
   $this->template->load('template', 'master_stok_kasir/master_stok_kasir_form');
- }
+ } 
 
  public function create_action()
  {
   $this->_rules();
 
   if ($this->form_validation->run() == false) {
-   $this->index();
-  } else {
-
+   $this->index();} 
+   
+   else {
    //START UPDATE STOK BARANG
    $kode_barang = $this->input->post('kode_barang', true);
    $stok        = $this->input->post('stok', true);
@@ -59,13 +59,14 @@ class Master_stok_kasir extends CI_Controller
    $ret   = $query->row();
    $_stok = $ret->stok;
    $stok  = $_stok - $stok;
+   
    if ($stok > 0) {
     $data2 = array(
      'kode_barang' => $this->input->post('kode_barang', true),
      'stok'        => $stok,
     );
-    //END UPDATE STOK BARANG
-
+    
+	//END UPDATE STOK BARANG
     $data = array(
      'kode_m_kasir' => $this->input->post('kode_m_kasir', true),
      'kode_barang'  => $this->input->post('kode_barang', true),
@@ -77,6 +78,7 @@ class Master_stok_kasir extends CI_Controller
     $this->Tab_barang_model->updateStok($kode_barang, $data2);
     $this->session->set_flashdata('message', 'Create Record Success 2');
     redirect(site_url('master_stok_kasir'));
+	
    } else {
     $this->session->set_flashdata('message', 'Stok tidak cukup');
     redirect(site_url('master_stok_kasir/create'));

@@ -17,15 +17,21 @@ class Tab_barang_model extends CI_Model
   }
 
   // datatables
+  //select b.kode_group, b.nama_group, a.kode_barang, a.nama, a.gambar, a.stok, a.keterangan, a.spesifikasi, a.merk,GROUP_CONCAT(DISTINCT c.lokasi) as lokasi
+	//from tab_barang a
+	//inner join master_group b on a.kode_group=b.kode_group
+	//left join stock_opname_detail c on a.kode_barang=c.kode_barang
+	//where a.del=0
+	//GROUP BY b.kode_group, b.nama_group, a.kode_barang, a.nama, a.gambar, a.keterangan, a.spesifikasi, a.merk
   public function json()
   {
-    $this->datatables->select('master_group.kode_group, master_group.nama_group, tab_barang.kode_barang, tab_barang.kode_group, tab_barang.nama, tab_barang.gambar, tab_barang.stok, tab_barang.keterangan, tab_barang.spesifikasi, tab_barang.merk, IFNULL( GROUP_CONCAT(stock_opname_detail.lokasi),NULL) AS lokasi');
-    $this->datatables->from('tab_barang');
+    $this->datatables->select('b.kode_group, b.nama_group, a.kode_barang,b.kode_group, a.nama, a.gambar, a.stok, a.keterangan, a.spesifikasi, a.merk,GROUP_CONCAT(DISTINCT c.lokasi) as lokasi');
+    $this->datatables->from('tab_barang a');
     //add this line for join
-    $this->datatables->join('master_group', 'tab_barang.kode_group = master_group.kode_group');
-    $this->datatables->join('stock_opname_detail', 'stock_opname_detail.kode_barang = tab_barang.kode_barang', 'LEFT');
-    $this->datatables->where('tab_barang.del =', 0);
-    $this->datatables->group_by('tab_barang.kode_barang');
+    $this->datatables->join('master_group b', 'a.kode_group=b.kode_group');
+    $this->datatables->join('stock_opname_detail c', 'a.kode_barang=c.kode_barang', 'LEFT');
+    $this->datatables->where('a.del =', 0);
+    $this->datatables->group_by('b.kode_group, b.nama_group, a.kode_barang, a.nama, a.gambar, a.keterangan, a.spesifikasi, a.merk');
     $this->datatables->add_column('action', anchor(site_url('tab_barang/read/$1'), '<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm')) . "
             " . anchor(site_url('tab_barang/update/$1'), '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm')) . "
                 " . anchor(site_url('tab_barang/delete/$1'), '<i class="fa fa-trash-o" aria-hidden="true"></i>', 'class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'kode_barang');

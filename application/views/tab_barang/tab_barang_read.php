@@ -14,7 +14,7 @@
 	    <tr><td>Jumlah</td><td><?php echo $stok; ?></td></tr>
 		<tr><td>Merk</td><td><?php echo $merk; ?></td></tr>
 		<tr><td>Spesifikasi</td><td><?php echo $spesifikasi; ?></td></tr>
-	    <tr><td>Lokasi</td><td><?php echo $keterangan; ?></td></tr>
+	    <tr><td>Keterangan</td><td><?php echo $keterangan; ?></td></tr>
 	    <!-- <tr><td>Opsi1</td><td><?php echo $opsi1; ?></td></tr>
 	    <tr><td>Opsi2</td><td><?php echo $opsi2; ?></td></tr>
 	    <tr><td>Opsi3</td><td><?php echo $opsi3; ?></td></tr>
