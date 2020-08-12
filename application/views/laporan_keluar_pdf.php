@@ -1,15 +1,17 @@
 <?php
 
 if (empty($tanggal_a) || empty($tanggal_b)) {
- $query = $this->db->query("SELECT * ,master_stok_kasir_detail.stok as qty
-                                FROM master_stok_kasir
-                                INNER JOIN master_stok_kasir_detail ON master_stok_kasir.nostokkasir = master_stok_kasir_detail.nostokkasir
-                                INNER JOIN tab_barang ON tab_barang.kode_barang = master_stok_kasir_detail.kode_barang");
-} else {
- $query = $this->db->query("SELECT * ,master_stok_kasir_detail.stok as qty
+ $query = $this->db->query("SELECT * ,master_stok_kasir_detail.stok as qty, s.datetime as tanggal_beli
                                 FROM master_stok_kasir
                                 INNER JOIN master_stok_kasir_detail ON master_stok_kasir.nostokkasir = master_stok_kasir_detail.nostokkasir
                                 INNER JOIN tab_barang ON tab_barang.kode_barang = master_stok_kasir_detail.kode_barang
+                                INNER JOIN stock_opname_detail s ON s.kode_barang =  master_stok_kasir_detail.kode_barang");
+} else {
+ $query = $this->db->query("SELECT * ,master_stok_kasir_detail.stok as qty, s.datetime as tanggal_beli
+                                FROM master_stok_kasir
+                                INNER JOIN master_stok_kasir_detail ON master_stok_kasir.nostokkasir = master_stok_kasir_detail.nostokkasir
+                                INNER JOIN tab_barang ON tab_barang.kode_barang = master_stok_kasir_detail.kode_barang
+                                INNER JOIN stock_opname_detail s ON s.kode_barang =  master_stok_kasir_detail.kode_barang
                                 WHERE tanggal BETWEEN '$tanggal_a' AND '$tanggal_a' ");
 }
 
@@ -50,6 +52,7 @@ if (empty($tanggal_a) || empty($tanggal_b)) {
         <tr>
             <td>No</td>
             <td>Nama Barang</td>
+            <td>Tanggal Beli</td>
             <td>Merk</td>
             <td>Gambar</td>
             <td>Alasan</td>
@@ -64,6 +67,7 @@ foreach ($query->result_array() as $data) {
         <tr>
             <td> <?php echo $no; ?></td>
             <td> <?php echo $data['nama']; ?></td>
+            <td> <?php echo date_format(date_create($data['tanggal_beli']), 'd/m/Y'); ?></td>
             <td> <?php echo $data['merk']; ?></td>
             <td> <img src="<?php echo base_url() . 'upload/image/' . $data['gambar']; ?>" alt="<?php echo $data['nama']; ?>" width="100"></td>
             <td> <?php echo $data['alasan']; ?></td>

@@ -25,6 +25,7 @@
             <th>Spesifikasi</th>
 		    <th>Lokasi</th>
 		    <th width="200px">Action</th>
+            <th>QR</th>
                 </tr>
             </thead>
 
@@ -77,7 +78,8 @@
                     {"data": "merk" },
                     {"data": "spesifikasi" },
                     {"data": "lokasi", "searchable":false },
-                    { "data" : "action" , "orderable" : false, "className" : "text-center" }
+                    { "data" : "action" , "orderable" : false, "className" : "text-center" },
+                    { "data" : "qr" , "orderable" : false, "className" : "text-center" }
                     ],
                 order: [[0, 'desc' ]],
                 rowCallback: function(row, data, iDisplayIndex) {

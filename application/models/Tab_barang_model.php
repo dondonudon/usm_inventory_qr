@@ -9,7 +9,10 @@ class Tab_barang_model extends CI_Model
 
   public $table = 'tab_barang';
   public $id    = 'kode_barang';
+  public $qr = 'kode_manual';
   public $order = 'DESC';
+
+  
 
   public function __construct()
   {
@@ -25,7 +28,7 @@ class Tab_barang_model extends CI_Model
 	//GROUP BY b.kode_group, b.nama_group, a.kode_barang, a.nama, a.gambar, a.keterangan, a.spesifikasi, a.merk
   public function json()
   {
-    $this->datatables->select('b.kode_group, b.nama_group, a.kode_barang,b.kode_group, a.nama, a.gambar, a.stok, a.keterangan, a.spesifikasi, a.merk,GROUP_CONCAT(DISTINCT c.lokasi) as lokasi');
+    $this->datatables->select('b.kode_group, b.nama_group, a.kode_barang,b.kode_group, a.nama, a.gambar, a.stok, a.keterangan, a.spesifikasi, a.merk,GROUP_CONCAT(DISTINCT c.lokasi) as lokasi, a.kode_manual as qr');
     $this->datatables->from('tab_barang a');
     //add this line for join
     $this->datatables->join('master_group b', 'a.kode_group=b.kode_group');
@@ -35,6 +38,7 @@ class Tab_barang_model extends CI_Model
     $this->datatables->add_column('action', anchor(site_url('tab_barang/read/$1'), '<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm')) . "
             " . anchor(site_url('tab_barang/update/$1'), '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm')) . "
                 " . anchor(site_url('tab_barang/delete/$1'), '<i class="fa fa-trash-o" aria-hidden="true"></i>', 'class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'kode_barang');
+    $this->datatables->add_column('qr', anchor(base_url() . 'upload/qr/$1', '<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm')), 'qr');
     return $this->datatables->generate();
   }
 

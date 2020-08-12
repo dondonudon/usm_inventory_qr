@@ -50,6 +50,20 @@ class Tab_barang extends CI_Controller
         }
     }
 
+    public function qr($id)
+    {
+        $row = $this->Tab_barang_model->get_by_id($id);
+        if ($row) {
+            $data = array(
+                'kode_manual' => $row->kode_manual,
+            );
+             
+        } else {
+            $this->session->set_flashdata('message', 'Record Not Found');
+            redirect(site_url('tab_barang'));
+        }
+    }
+
     public function create()
     {
         $data = array(
@@ -150,6 +164,15 @@ class Tab_barang extends CI_Controller
         $ext  = end($tmp); # extra () to prevent notice
 
         if ($name != "") {
+            //QR CODE
+            $_nama = $this->input->post('nama', true);
+            $_merk = $this->input->post('merk', true);
+            $nama = time();
+            $isi  = "Nama Barang          : $_nama
+                    \n Merk                 : $_merk";
+            $image_name = $nama . '.png';
+            qrcode($nama, $isi);
+            //END QR CODE
             $data = array(
                 //'kode_group'  => $this->input->post('kode_group', true),
                 'nama'       => $this->input->post('nama', true),
@@ -159,6 +182,8 @@ class Tab_barang extends CI_Controller
                 'gambar'     => 'b_' . time() . '.' . $ext,
                 'keterangan' => $this->input->post('keterangan', true),
                 'datetime'   => date('Y-m-d H:i:s'),
+                'kode_manual' => $image_name,
+
             );
             $this->Tab_barang_model->update($this->input->post('kode_barang', true), $data);
             //UPLOAD GAMBAR
@@ -170,6 +195,15 @@ class Tab_barang extends CI_Controller
             $this->load->library('upload', $config); // Load konfigurasi uploadnya
             $this->upload->do_upload('gambar');
         } else {
+            //QR CODE
+            $_nama = $this->input->post('nama', true);
+            $_merk = $this->input->post('merk', true);
+            $nama = time();
+            $isi  = "Nama Barang          : $_nama
+                    \n Merk                 : $_merk";
+            $image_name = $nama . '.png';
+            qrcode($nama, $isi);
+            //END QR CODE
             $data = array(
                 // 'kode_group'  => $this->input->post('kode_group', true),
                 'nama'        => $this->input->post('nama', true),
@@ -178,6 +212,7 @@ class Tab_barang extends CI_Controller
                 'merk'        => $this->input->post('merk', true),
                 'keterangan'  => $this->input->post('keterangan', true),
                 'datetime'    => date('Y-m-d H:i:s'),
+                'kode_manual' => $image_name,
             );
         }
 
