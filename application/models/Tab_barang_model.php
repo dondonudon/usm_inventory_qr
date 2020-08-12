@@ -38,7 +38,7 @@ class Tab_barang_model extends CI_Model
     $this->datatables->add_column('action', anchor(site_url('tab_barang/read/$1'), '<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm')) . "
             " . anchor(site_url('tab_barang/update/$1'), '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm')) . "
                 " . anchor(site_url('tab_barang/delete/$1'), '<i class="fa fa-trash-o" aria-hidden="true"></i>', 'class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'kode_barang');
-    $this->datatables->add_column('qr', anchor(base_url() . 'upload/qr/$1', '<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm')), 'qr');
+    $this->datatables->add_column('qr', anchor(base_url() . 'upload/qr/$1', '<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm',"target"=>"_blank")), 'qr');
     return $this->datatables->generate();
   }
 
