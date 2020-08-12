@@ -41,6 +41,7 @@ class Tab_barang extends CI_Controller
                 'gambar'      => $row->gambar,
                 'stok'        => $row->stok,
                 'keterangan'  => $row->keterangan,
+                'kode_manual' => $row->kode_manual,
             );
             $this->template->load('template', 'tab_barang/tab_barang_read', $data);
         } else {
@@ -78,6 +79,16 @@ class Tab_barang extends CI_Controller
         if ($this->form_validation->run() == false) {
             $this->create();
         } else {
+            //QR CODE
+            $_nama = $this->input->post('nama', true);
+            $_merk = $this->input->post('merk', true);
+            $nama = time();
+            $isi  = "Nama Barang          : $_nama
+                    \n Merk                 : $_merk";
+            $image_name = $nama . '.png';
+            qrcode($nama, $isi);
+            //END QR CODE
+
             $data = array(
                 'kode_group'  => $this->input->post('kode_group', true),
                 'nama'        => $this->input->post('nama', true),
@@ -87,6 +98,7 @@ class Tab_barang extends CI_Controller
                 'gambar'      => 'b_' . time() . '.' . $ext,
                 'keterangan'  => $this->input->post('keterangan', true),
                 'datetime'    => date('Y-m-d H:i:s'),
+                'kode_manual' => $image_name,
             );
 
             //UPLOAD GAMBAR

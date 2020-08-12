@@ -15,11 +15,7 @@
 		<tr><td>Merk</td><td><?php echo $merk; ?></td></tr>
 		<tr><td>Spesifikasi</td><td><?php echo $spesifikasi; ?></td></tr>
 	    <tr><td>Keterangan</td><td><?php echo $keterangan; ?></td></tr>
-	    <!-- <tr><td>Opsi1</td><td><?php echo $opsi1; ?></td></tr>
-	    <tr><td>Opsi2</td><td><?php echo $opsi2; ?></td></tr>
-	    <tr><td>Opsi3</td><td><?php echo $opsi3; ?></td></tr>
-	    <tr><td>Opsi4</td><td><?php echo $opsi4; ?></td></tr>
-	    <tr><td>Opsi5</td><td><?php echo $opsi5; ?></td></tr> -->
+	    <tr><td>QR</td><td><img src="<?php echo base_url() . '/upload/qr/' . $kode_manual; ?>" width="200px"></td></tr>
 	    <tr><td></td><td><a href="<?php echo site_url('tab_barang') ?>" class="btn btn-default">Cancel</a></td></tr>
 	</table>
 
